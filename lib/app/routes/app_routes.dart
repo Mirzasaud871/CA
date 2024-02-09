@@ -1,0 +1,80 @@
+part of 'app_pages.dart';
+// DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
+
+abstract class Routes {
+  Routes._();
+  static const HOME = _Paths.HOME;
+  static const LOGINPAGE = _Paths.LOGINPAGE;
+  static const REGISTER = _Paths.REGISTER;
+  static const OURSERVICES = _Paths.OURSERVICES;
+  static const BOTTOMBAR = _Paths.BOTTOMBAR;
+  static const GSTPROPRIETORSHIP = _Paths.GSTPROPRIETORSHIP;
+  static const STARTUP = _Paths.STARTUP;
+  static const TRADEMARK = _Paths.TRADEMARK;
+  static const GOODSERVICES = _Paths.GOODSERVICES;
+  static const INCOMETAX = _Paths.INCOMETAX;
+  static const COMPLIANCE = _Paths.COMPLIANCE;
+  static const LOAN = _Paths.LOAN;
+  static const IMPORTEXPORT = _Paths.IMPORTEXPORT;
+  static const LEGALDOCUMENTATION = _Paths.LEGALDOCUMENTATION;
+  static const COMPANYCONVERT = _Paths.COMPANYCONVERT;
+  static const ISO = _Paths.ISO;
+  static const BANKING = _Paths.BANKING;
+  static const SERVICEVIEW = _Paths.SERVICEVIEW;
+  static const DASHBOARD = _Paths.DASHBOARD;
+  static const PROFILE = _Paths.PROFILE;
+  static const DETAILS = _Paths.DETAILS;
+  static const INTRODUCTION = _Paths.INTRODUCTION;
+  static const USERPROFILE = _Paths.USERPROFILE;
+  static const CHECKOUT = _Paths.CHECKOUT;
+  static const DOCUMENT = _Paths.DOCUMENT;
+  static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
+  static const FAMILYMEMBER = _Paths.FAMILYMEMBER;
+  static const ADDCOMPANY = _Paths.ADDCOMPANY;
+  static const COMPANYMANAGMENT = _Paths.COMPANYMANAGMENT;
+  static const ADDFAMILYMEMBER = _Paths.ADDFAMILYMEMBER;
+  static const MYORDER = _Paths.MYORDER;
+  static const COMPANYDETAILS = _Paths.COMPANYDETAILS;
+  static const COMPANYUPDATE = _Paths.COMPANYUPDATE;
+  static const MYORDER_DOCUMENT = _Paths.MYORDER_DOCUMENT;
+  static const CREATEPASSWORD = _Paths.CREATEPASSWORD;
+}
+
+abstract class _Paths {
+  _Paths._();
+  static const HOME = '/home';
+  static const LOGINPAGE = '/loginpage';
+  static const REGISTER = '/register';
+  static const OURSERVICES = '/ourservices';
+  static const BOTTOMBAR = '/bottombar';
+  static const GSTPROPRIETORSHIP = '/gstproprietorship';
+  static const STARTUP = '/startup';
+  static const TRADEMARK = '/trademark';
+  static const GOODSERVICES = '/goodservices';
+  static const INCOMETAX = '/incometax';
+  static const COMPLIANCE = '/compliance';
+  static const LOAN = '/loan';
+  static const IMPORTEXPORT = '/importexport';
+  static const LEGALDOCUMENTATION = '/legaldocumentation';
+  static const COMPANYCONVERT = '/companyconvert';
+  static const ISO = '/iso';
+  static const BANKING = '/banking';
+  static const SERVICEVIEW = '/serviceview';
+  static const DASHBOARD = '/dashboard';
+  static const PROFILE = '/profile';
+  static const DETAILS = '/details';
+  static const INTRODUCTION = '/introduction';
+  static const USERPROFILE = '/userprofile';
+  static const CHECKOUT = '/checkout';
+  static const DOCUMENT = '/document';
+  static const CHANGE_PASSWORD = '/change-password';
+  static const FAMILYMEMBER = '/familymember';
+  static const ADDCOMPANY = '/addcompany';
+  static const COMPANYMANAGMENT = '/companymanagment';
+  static const ADDFAMILYMEMBER = '/addfamilymember';
+  static const MYORDER = '/myorder';
+  static const COMPANYDETAILS = '/companydetails';
+  static const COMPANYUPDATE = '/companyupdate';
+  static const MYORDER_DOCUMENT = '/myorder-document';
+  static const CREATEPASSWORD = '/createpassword';
+}
