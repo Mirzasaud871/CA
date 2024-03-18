@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../constants.dart';
@@ -25,16 +26,133 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
         title: const Text('Add Members',style: TextStyle(color: Colors.white),),
         centerTitle: true,
       ),
+      //Body
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child:
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
+              Container(
+                padding: EdgeInsets.all(6),
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    border: const GradientBoxBorder(
+                      gradient:
+                      LinearGradient(colors: [Colors.red, Colors.green]),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(4)),
+                child: InkWell(
+                  onTap: () {
+                    Get.defaultDialog(
+                        middleText: 'Select Image',
+                        title: 'Profile Image',
+                        barrierDismissible: true,
+                        radius: 5.0,
+                        confirm: InkWell(
+                          onTap: () {
+                            Get.back();
+                            addfamilymemberController
+                                .getProfileImage(ImageSource.gallery);
+                          },
+                          child: Card(
+                            elevation: 5,
+                            child: Container(
+                                height: 100,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      CupertinoIcons.photo_on_rectangle,
+                                      size: 50,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Gallery",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 15),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        ),
+                        cancel: InkWell(
+                          onTap: () {
+                            Get.back();
+                            addfamilymemberController
+                                .getProfileImage(ImageSource.camera);
+                          },
+                          child: Card(
+                            elevation: 5,
+                            child: Container(
+                                height: 100,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      CupertinoIcons.camera_on_rectangle,
+                                      size: 50,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Camera",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 15),
+                                    )
+                                  ],
+                                )),
+                          ),
+                        ));
+                  },
+                  child: Obx(() {
+                    return Container(
+                        decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: addfamilymemberController.getprofileImage.value != ''
+                            ? ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Image.file(
+                                File(addfamilymemberController.getprofileImage.value),
+                                fit: BoxFit.cover)
+                        )
+                            : const Center(child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text('Profile', style: TextStyle(fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black45),),
+                            Icon(
+                              Icons.add_a_photo, size: 30, color: Colors.grey,
+                            )
+                          ],
+                        ),
+                        ));
+                  }),
+                ),
+              ),
+
               SizedBox(
-                height: 5,
+                height: 15,
               ),
               TextField(
+                controller: addfamilymemberController.nameController,
                   decoration: InputDecoration(
                     hintText: "Full Name",
                     labelText: "Enter your name",
@@ -52,6 +170,7 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                 height: 15,
               ),
               TextField(
+                controller: addfamilymemberController.tradeNameController,
                   decoration: InputDecoration(
                     hintText: "Trade Name",
                     labelText: "Trade name",
@@ -70,6 +189,7 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                 height: 15,
               ),
               TextField(
+                controller: addfamilymemberController.emailController,
                   decoration: InputDecoration(
                     hintText: "emial@gmail.com",
                     labelText: "Enter your email",
@@ -89,6 +209,7 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                 height: 15,
               ),
               TextField(
+                controller: addfamilymemberController.mobileController,
                   decoration: InputDecoration(
                     hintText: "+91 Mobile",
                     labelText: "Mobile number",
@@ -108,6 +229,7 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                 height: 15,
               ),
               TextField(
+                controller: addfamilymemberController.dinNumberController,
                   decoration: InputDecoration(
                     hintText: "DIN Number",
                     labelText: "DIN No. (Optional)",
@@ -127,6 +249,7 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                 height: 15,
               ),
               TextField(
+                controller: addfamilymemberController.panController,
                   decoration: InputDecoration(
                     hintText: "PAN Number",
                     labelText: "Pan card",
@@ -146,9 +269,17 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                 height: 15,
               ),
               //PanCard
-              SizedBox(
+              Container(
+                padding: EdgeInsets.all(6),
                 height: 200,
                 width: double.infinity,
+                decoration: BoxDecoration(
+                    border: const GradientBoxBorder(
+                      gradient:
+                      LinearGradient(colors: [Colors.red, Colors.green]),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(4)),
                 child: InkWell(
                   onTap: () {
                     Get.defaultDialog(
@@ -227,20 +358,26 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                     return Container(
                         decoration: BoxDecoration(
                             color: primaryColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: addfamilymemberController.panCard.value != ''
+                            borderRadius: BorderRadius.circular(4)),
+                        child: addfamilymemberController.getpanImage.value != ''
                             ? ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(4),
                             child: Image.file(
-                                File(addfamilymemberController.panCard.value),
+                                File(addfamilymemberController.getpanImage.value),
                                 fit: BoxFit.cover)
                         )
-                            : const Center(
-                          child: Icon(
-                            Icons.add_a_photo,
-                            size: 80,
-                            color: Colors.grey,
-                          ),
+                            : const Center(child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text('PanCard', style: TextStyle(fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black45),),
+                            Icon(
+                              Icons.add_a_photo, size: 30, color: Colors.grey,
+                            )
+                          ],
+                        ),
                         ));
                   }),
                 ),
@@ -250,6 +387,7 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                 height: 15,
               ),
               TextField(
+                controller: addfamilymemberController.aadharController,
                   decoration: InputDecoration(
                     hintText: "Aadhar Number",
                     labelText: "Aadhar card",
@@ -269,9 +407,17 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
               SizedBox(
                 height: 15,
               ),
-              SizedBox(
+              Container(
+                padding: EdgeInsets.all(6),
                 height: 200,
                 width: double.infinity,
+                decoration: BoxDecoration(
+                    border: const GradientBoxBorder(
+                      gradient:
+                      LinearGradient(colors: [Colors.red, Colors.green]),
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(4)),
                 child: InkWell(
                   onTap: () {
                     Get.defaultDialog(
@@ -282,7 +428,7 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                         confirm: InkWell(
                           onTap: () {
                             Get.back();
-                            addfamilymemberController.getAadhaarFrontImage(
+                            addfamilymemberController.getAadhaarImage(
                                 ImageSource.gallery);
                           },
                           child: Card(
@@ -321,8 +467,7 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                         cancel: InkWell(
                           onTap: () {
                             Get.back();
-                            addfamilymemberController.getAadhaarFrontImage(
-                                ImageSource.camera);
+                            addfamilymemberController.getAadhaarImage(ImageSource.camera);
                           },
                           child: Card(
                             elevation: 5,
@@ -362,13 +507,13 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
                     return Container(
                         decoration: BoxDecoration(
                             color: primaryColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10)
+                            borderRadius: BorderRadius.circular(4)
                         ),
-                        child: addfamilymemberController.aadhaarFront.value != ''
+                        child: addfamilymemberController.getaadharImage.value != ''
                             ? ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(4),
                             child: Image.file(
-                                File(addfamilymemberController.aadhaarFront.value),
+                                File(addfamilymemberController.getaadharImage.value),
                                 fit: BoxFit.cover)
                         )
                             : const Center(child: Column(
@@ -390,20 +535,40 @@ class AddfamilymemberView extends GetView<AddfamilymemberController> {
               ),
 
               SizedBox(height: 15,),
-              Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: primaryColor,
+              InkWell(
+                onTap: () {
+                  addfamilymemberController.addMembers(
+                    {
+                      'first_name': addfamilymemberController.nameController.text,
+                      'trade': addfamilymemberController.tradeNameController.text,
+                      'email': addfamilymemberController.emailController.text,
+                      'mobile_no': addfamilymemberController.mobileController.text,
+                      'din_no': addfamilymemberController.dinNumberController.text,
+                      'pan': addfamilymemberController.panController.text,
+                      'aadhar': addfamilymemberController.aadharController.text,
+                      'pan_image': addfamilymemberController.getpanImage.value,
+                      'aadhar_image':addfamilymemberController.getaadharImage.value,
+                      'image':addfamilymemberController.getprofileImage.value,
+                    },
+                    // XFile(userprofileController.panI.value.toString()),
+                    // XFile(userprofileController.getpanImage.toString())
+                  );
+                },
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: primaryColor,
+                  ),
+                  child: Center(
+                      child: Text(
+                        "Save",
+                        style: TextStyle(fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      )),
                 ),
-                child: Center(
-                    child: Text(
-                      "Save",
-                      style: TextStyle(fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    )),
               ),
               SizedBox(height: 10,),
 

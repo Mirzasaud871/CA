@@ -10,11 +10,20 @@ import '../controllers/startup_controller.dart';
 
 class StartupView extends GetView<StartupController> {
   List<CompanyService>? categoryItemList = <CompanyService>[];
+
   StartupView(this.categoryItemList, {Key? key}) : super(key: key);
   StartupController startupController = Get.put(StartupController());
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: primaryColor,
@@ -30,7 +39,7 @@ class StartupView extends GetView<StartupController> {
               icon: const Icon(Icons.arrow_back)),
           actions: [
             const Icon(
-              CupertinoIcons.shopping_cart,
+              Icons.shopping_cart,
               size: 25,
             ),
             Obx(() {
@@ -43,7 +52,7 @@ class StartupView extends GetView<StartupController> {
                   ),
                   onPressed: () {
                     startupController.filterlist.value =
-                        !startupController.filterlist.value;
+                    !startupController.filterlist.value;
                   });
             }),
             const SizedBox(width: 10),
@@ -53,9 +62,12 @@ class StartupView extends GetView<StartupController> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                    height: Get.width * 1.98,
-                    child: GridView.builder(
+                Obx(() {
+                  return SizedBox(
+                    height: Get.width * 1.90,
+                    child: startupController.filterlist.value == true ?
+                    GridView.builder(
+                      shrinkWrap: true,
                       itemCount: categoryItemList!.length,
                       gridDelegate:
                       SliverGridDelegateWithFixedCrossAxisCount(
@@ -83,91 +95,191 @@ class StartupView extends GetView<StartupController> {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                CrossAxisAlignment.center,
                                 children: [
-                                  InkWell(
-                                    onTap: (){
-                                      Get.to( ()=> DetailsView(),arguments:
+                                  Expanded(
+                                    flex: 3,
+                                    child: InkWell(
+                                      onTap: () {
+                                        Get.to(() => DetailsView(), arguments:
                                         categoryItemList![index].slug,
-                                      );
-                                    },
-                                    child:categoryItemList![index].image != null
-                                ? Image.network(
-                                        "${categoryItemList![index].image}")
-                                 : Image.asset("assets/images/trademark/fram1.jpg"),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    "${categoryItemList![index].name}",
-                                    style: const TextStyle(
-                                        color: Colors.red,
-                                        fontSize:20,
-                                        letterSpacing: 0.6,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Row(
-                                    children: [
-                                      const SizedBox(
-                                        height: 10,
+                                        );
+                                      },
+                                      child: Container(
+                                        child: categoryItemList![index].image !=
+                                            null
+                                            ? Image.network(
+                                            "${categoryItemList![index].image}")
+                                            : Image.asset(
+                                            "assets/images/trademark/fram1.jpg"),
                                       ),
-                                      const Text(
-                                        "Market Price :",
-                                        style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                          "${categoryItemList![index].marketPrice}",
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              decoration: TextDecoration
-                                                  .lineThrough,
-                                              color: Colors.green)),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        "Offer Price :",
-                                        style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                          "${categoryItemList![index].price}",
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.red)),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10,),
-                                  InkWell(
-                                    onTap: (){
-                                      Get.to( () => CheckoutView(),
-                                        arguments: categoryItemList![index].slug
-                                      );
-                                    },
-                                    child: Container(
-                                      height: 30,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius:
-                                          BorderRadius.circular(100.0)),
-                                      child: const Center(
-                                          child: Text(
-                                            "Buy Now",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          )),
                                     ),
-                                  )
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Spacer(),
+                                        Text(
+                                          "${categoryItemList![index].name}",
+                                          style: TextStyle(
+                                              fontSize: screenWidth * 0.05,
+                                              color: Colors.red,
+                                              letterSpacing: 0.6,
+                                              overflow: TextOverflow.ellipsis,
+                                              fontWeight: FontWeight.bold),
+                                          maxLines: 2,
+                                        ),
+                                        Text(
+                                            "Market Price :${categoryItemList![index]
+                                                .marketPrice}",
+                                            style: TextStyle(
+                                                fontSize: screenWidth * 0.04,
+                                                decoration: TextDecoration
+                                                    .lineThrough,
+                                                color: Colors.blue)),
+                                        Text(
+                                            "Offer Price :${categoryItemList![index].price}",
+                                            style: TextStyle(
+                                                fontSize: screenWidth * 0.04,
+                                                color: Colors.green,fontWeight: FontWeight.bold)),
+
+                                        SizedBox(height: 10,),
+                                        InkWell(
+                                          onTap: () {
+                                            Get.to(() => CheckoutView(),
+                                                arguments: categoryItemList![index]
+                                                    .slug
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 30,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                                color: primaryColor,
+                                                borderRadius:
+                                                BorderRadius.circular(100.0)),
+                                            child: const Center(
+                                                child: Text(
+                                                  "Buy Now",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.bold),
+                                                )),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 5,),
+
                                 ],
                               ),
                             ),
                           ),
                         );
                       },
-                    )
-                )
+                    ) :
+                    ListView.builder(
+                        itemCount: categoryItemList!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return DelayedDisplay(
+                            delay: const Duration(milliseconds: 300),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  margin: EdgeInsets.symmetric(vertical: 12.0,horizontal: 06),
+                                  height: 110,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    border: Border.all(color: Colors.grey)
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                          child: categoryItemList![index].image !=
+                                              null
+                                              ? Image.network(
+                                              "${categoryItemList![index].image}")
+                                              : Image.asset(
+                                              "assets/images/trademark/fram1.jpg"),
+                                        ),
+                                      ),
+                                      SizedBox(width: 15,),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children:[
+                                            SizedBox(height: 12,),
+                                            Container(
+                                              child: Text("${categoryItemList![index].name}",style: TextStyle(
+                                                fontSize: screenWidth * 0.045,
+                                                fontWeight: FontWeight.bold,
+                                                overflow: TextOverflow.ellipsis,
+                                                color: Colors.red
+                                              ),),
+                                            ),
+                                            SizedBox(height: 4),
+                                            Container(
+                                              child: Text("Market Price : ${categoryItemList![index].marketPrice}",style: TextStyle(
+                                                  fontSize: screenWidth * 0.035,
+                                                  fontWeight: FontWeight.bold,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  color: Colors.blue
+                                              ),),
+                                            ),
+                                            Container(
+                                              child: Text("Offer Price: ${categoryItemList![index].price}",style: TextStyle(
+                                                  fontSize: screenWidth * 0.040,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.green
+                                              ),),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: InkWell(
+                                    onTap: (){
+                                      Get.to(() => CheckoutView(),
+                                          arguments: categoryItemList![index]
+                                              .slug
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(2.0),
+                                      margin: EdgeInsets.symmetric(horizontal: 5.0,vertical: 4.0),
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(100),
+                                      ),
+                                      child:Icon(Icons.add_shopping_cart,size: 20,color: Colors.white,),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+
+                  );
+                })
               ],
             ),
           ),

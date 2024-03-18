@@ -12,7 +12,7 @@ import '../../bottombar/views/bottombar_view.dart';
 
 class LoginpageController extends GetxController {
   //TODO: Implement LoginpageController
-
+  final passwordVisible = false.obs;
   final count = 0.obs;
   final isCheckEmail = false.obs;
   final isCreatepass = false.obs;
@@ -120,15 +120,19 @@ class LoginpageController extends GetxController {
     var res = await ApiServices().postApi(loginCheckURL,{
       'email' : email,
     });
+    print("response $res");
     res.fold((l){
       if(l['status'] == 200){
         print("register page ${l['message']}");
         isCheckEmail.value = true;
+        loadingButtonController.reset();
       }else{
         print("already exist ${l['error']}");
         isEmail.value = true;
+        loadingButtonController.reset();
       }
     },(r){
+      print("error login check");
     });
   }
 
@@ -152,7 +156,9 @@ class LoginpageController extends GetxController {
         sharedPreferences.setString(userImage, userdata.image!);
         sharedPreferences.setString(userToken, userdata.token!);
         sharedPreferences.setString(userEmail, userdata.email!);
+        sharedPreferences.setString(userMobile, userdata.mobileNo!);
         Get.offAll(BottombarView());
+        loadingButtonController.reset();
         isEmail.value = false;
       }
     }, (r) {
@@ -181,7 +187,15 @@ class LoginpageController extends GetxController {
         sharedPreferences.setString(userImage, userdata.image!);
         sharedPreferences.setString(userToken, userdata.token!);
         sharedPreferences.setString(userEmail, userdata.email!);
-
+        nameController.clear();
+        mobileController.clear();
+      }else if(l['status'] == 400){
+        Get.snackbar(
+            "Try Again !",
+            "This Mobile number is already registered with other User",
+        backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM
+        );
       }
     },(r){
 

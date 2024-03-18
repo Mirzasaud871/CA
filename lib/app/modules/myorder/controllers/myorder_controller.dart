@@ -1,15 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vakil99/Models/MyorderModel.dart';
+import 'package:vakil99/apiservices.dart';
 import 'dart:io' as Io;
 import '../../../../constants.dart';
 
 class MyorderController extends GetxController {
   //TODO: Implement MyorderController
 
-  final count = 0.obs;
+  RxList<Order> myOrderlistModel = <Order>[].obs;
+
+  var filterlist = true.obs;
   var dropdownvalue = 'Pan Card'.obs;
   var imagesCollect = ''.obs;
   var imagesCollectBase64 = ''.obs;
@@ -21,6 +26,7 @@ class MyorderController extends GetxController {
 
   @override
   void onInit() {
+    getOrder();
     super.onInit();
   }
 
@@ -34,7 +40,8 @@ class MyorderController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+
+
 
   void selectImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
@@ -52,4 +59,20 @@ class MyorderController extends GetxController {
       );
     }
   }
+
+  getOrder() async{
+    print("my order function");
+    var res = await ApiServices().getApi(myOrderURL);
+    res.fold((l){
+     if(l['status'] == 200){
+       List orderData = l['orders'];
+       myOrderlistModel.addAll(orderData.map((val) => Order.fromJson(val)));
+     }else if(l['status'] == 405){
+     print("error order page 405");
+     }
+     update();
+    },(r){
+    });
+  }
+
 }

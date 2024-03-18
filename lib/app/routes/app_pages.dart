@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 
+import '../modules/add_directors/bindings/add_directors_binding.dart';
+import '../modules/add_directors/views/add_directors_view.dart';
 import '../modules/addcompany/bindings/addcompany_binding.dart';
 import '../modules/addcompany/views/addcompany_view.dart';
 import '../modules/addfamilymember/bindings/addfamilymember_binding.dart';
 import '../modules/addfamilymember/views/addfamilymember_view.dart';
+import '../modules/addform/bindings/addform_binding.dart';
+import '../modules/addform/views/addform_view.dart';
 import '../modules/bottombar/bindings/bottombar_binding.dart';
 import '../modules/bottombar/views/bottombar_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
@@ -32,8 +36,12 @@ import '../modules/gstproprietorship/bindings/gstproprietorship_binding.dart';
 import '../modules/gstproprietorship/views/gstproprietorship_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/implinks/bindings/implinks_binding.dart';
+import '../modules/implinks/views/implinks_view.dart';
 import '../modules/introduction/bindings/introduction_binding.dart';
 import '../modules/introduction/views/introduction_view.dart';
+import '../modules/ledger/bindings/ledger_binding.dart';
+import '../modules/ledger/views/ledger_view.dart';
 import '../modules/loginpage/bindings/loginpage_binding.dart';
 import '../modules/loginpage/views/loginpage_view.dart';
 import '../modules/myorder/bindings/myorder_binding.dart';
@@ -176,13 +184,33 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MYORDER_DOCUMENT,
-      page: () =>  MyorderDocumentView(),
+      page: () => MyorderDocumentView(),
       binding: MyorderDocumentBinding(),
     ),
     GetPage(
       name: _Paths.CREATEPASSWORD,
       page: () => CreatepasswordView(),
       binding: CreatepasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_DIRECTORS,
+      page: () => AddDirectorsView(),
+      binding: AddDirectorsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDFORM,
+      page: () => AddformView(),
+      binding: AddformBinding(),
+    ),
+    GetPage(
+      name: _Paths.LEDGER,
+      page: () => LedgerView(),
+      binding: LedgerBinding(),
+    ),
+    GetPage(
+      name: _Paths.IMPLINKS,
+      page: () => ImplinksView(),
+      binding: ImplinksBinding(),
     ),
   ];
 }

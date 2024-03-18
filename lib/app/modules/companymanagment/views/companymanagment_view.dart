@@ -1,176 +1,284 @@
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vakil99/app/modules/add_directors/views/add_directors_view.dart';
 import 'package:vakil99/app/modules/addcompany/views/addcompany_view.dart';
 import 'package:vakil99/app/modules/companydetails/views/companydetails_view.dart';
-import 'package:vakil99/app/modules/companyupdate/views/companyupdate_view.dart';
 import 'package:vakil99/constants.dart';
 import '../controllers/companymanagment_controller.dart';
 
 class CompanymanagmentView extends GetView<CompanymanagmentController> {
-  const CompanymanagmentView({Key? key}) : super(key: key);
+  CompanymanagmentView({Key? key}) : super(key: key);
+  CompanymanagmentController companymanagmentController =
+      Get.put(CompanymanagmentController());
+
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              onPressed: (){
+              onPressed: () {
                 Get.back();
               },
-              icon: const Icon(Icons.arrow_back,color: Colors.white,)),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              )),
           backgroundColor: primaryColor,
-          title: const Text('Company Managment',style: TextStyle(color: Colors.white),),
+          title: const Text(
+            'Company Managment',
+            style: TextStyle(color: Colors.white),
+          ),
           centerTitle: true,
         ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                //Dialoge
-                Row(
-                  children: [
-                    const Text("Company",
-                    style: TextStyle(fontSize: 20),),
-                    const Spacer(),
-                    InkWell(
-                      onTap: (){
-                        Get.to(AddcompanyView());
-                      },
-                      child: Container(
-                          height: 45,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6.0),
-                            color: Colors.green.shade400,
-                          ),
-                          child: const Center(
-                              child: Text(
-                                "Add Company",
-                                style:
-                                TextStyle(fontSize: 16, color: Colors.white),
-                              ))),
-                    )
-                  ],
-                ),
-
-                const SizedBox(height: 10,),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                  height: 55,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6.0),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade300,width: 2)
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  //Dialoge
+                  Row(
+                    children: [
+                      const Text(
+                        "Company",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () {
+                          Get.to(AddcompanyView());
+                        },
+                        child: Container(
+                            height: 45,
+                            width: 150,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.0),
+                                color: Colors.white,
+                                border: Border.all(color: Colors.grey)),
+                            child: const Center(
+                                child: Text(
+                              "Add Company",
+                              style:
+                                  TextStyle(fontSize: 16, color: primaryColor),
+                            ))),
+                      )
+                    ],
                   ),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        hintText: "Search",
-                        focusedBorder: InputBorder.none,
-                        border: InputBorder.none,
-                        suffixIcon: Icon(Icons.search)
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                    height: 55,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6.0),
+                        color: Colors.white,
+                        border:
+                            Border.all(color: Colors.grey.shade300, width: 2)),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                          hintText: "Search",
+                          focusedBorder: InputBorder.none,
+                          border: InputBorder.none,
+                          suffixIcon: Icon(Icons.search)),
                     ),
                   ),
-                ),
 
-                const SizedBox(height: 10,),
-                SizedBox(
-                  height: Get.width * 1.80,
-                  child: ListView.builder(
-                    itemCount: 6,
-                    itemBuilder: (context, i){
-                        return Container(
-                          margin: const EdgeInsets.all(4.0),
-                          height: Get.width * 0.45,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6.0),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade400,
-                                  blurRadius: 6.0,
-                                ),]
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Column(
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Obx(() {
+                    return SizedBox(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount:
+                            companymanagmentController.companyModellist.length,
+                        itemBuilder: (context, index) {
+                          return DelayedDisplay(
+                            delay: const Duration(milliseconds: 200),
+                            child: Container(
+                              margin: const EdgeInsets.all(4.0),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade400,
+                                      blurRadius: 6.0,
+                                    ),
+                                  ]),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("S no. 1",style: TextStyle(fontSize: 16,color: primaryColor,fontWeight: FontWeight.bold),),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        const Text("CIN : ",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        Text("12345",style: TextStyle(fontSize: 18),)
-                                      ],
+                                    Expanded(
+                                      flex:5,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "S_No. ${index + 1}",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: primaryColor,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 14,
+                                          ),
+                                          Text(
+                                            "CIN : ${companymanagmentController.companyModellist[index].cin}",
+                                            style: TextStyle(
+                                                fontSize: screenWidth * 0.048),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+
+                                          Text(
+                                            "Company Name : ${companymanagmentController.companyModellist[index].companyName}",
+                                            style: TextStyle(
+                                                fontSize: screenWidth * 0.048),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+
+                                          Text(
+                                            "Catagory : ${companymanagmentController.companyModellist[index].category}",
+                                            style: TextStyle(fontSize: screenWidth * 0.048),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+
+                                          Text(
+                                            "Register Number : ${companymanagmentController.companyModellist[index].registrationNo}",
+                                            style: TextStyle(fontSize: screenWidth * 0.048),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+
+                                          Text(
+                                            "ROC : ${companymanagmentController.companyModellist[index].roc}",
+                                            style: TextStyle(fontSize: screenWidth * 0.048),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text("Company Name : ",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        Text("Zynomatrix",style: TextStyle(fontSize: 18),)
-                                      ],
-                                    ),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text("Company Catagory : ",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        Text("Software Tech",style: TextStyle(fontSize: 18),)
-                                      ],
-                                    ),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text("Register Number : ",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        Text("Zynomatrix",style: TextStyle(fontSize: 18),)
-                                      ],
-                                    ),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text("ROC : ",style: TextStyle(fontWeight: FontWeight.bold),),
-                                        Text("Ujjain21",style: TextStyle(fontSize: 18),)
-                                      ],
-                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            child: PopupMenuButton<int>(
+                                              itemBuilder: (context) => [
+                                                // PopupMenuItem 1
+                                                PopupMenuItem(
+                                                  value: 1,
+                                                  // row with 2 children
+                                                  child: InkWell(
+                                                    onTap: (){
+                                                      Get.back();
+                                                    },
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        Get.to(() => CompanydetailsView(),
+                                                            arguments:
+                                                            companymanagmentController
+                                                                .companyModellist[index]
+                                                                .cin);
+                                                      },
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(Icons.description,color: Colors.orange,),
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text("View",style: TextStyle(color: Colors.orange,fontWeight: FontWeight.bold),)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                // PopupMenuItem 2
+                                                PopupMenuItem(
+                                                  value: 2,
+                                                  // row with two children
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.edit_document,color: Colors.green,),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text("Edit",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold))
+                                                    ],
+                                                  ),
+                                                ),
+                                                // PopupMenuItem 3
+                                                PopupMenuItem(
+                                                  value: 3,
+                                                  // row with two children
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.delete,color: Colors.red,),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text("Delete",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold))
+                                                    ],
+                                                  ),
+                                                ),
+                                                // PopupMenuItem 4
+                                                PopupMenuItem(
+                                                  value: 4,
+                                                  // row with two children
+                                                  child: InkWell(
+                                                    onTap: (){
+                                                      Get.to(AddDirectorsView());
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(Icons.add,color: Colors.blue,),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text("Add",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                              offset: Offset(0, 50),
+                                              color: Colors.white,
+                                              elevation: 2,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 ),
-                                const Spacer(),
-                                Column(
-                                  children: [
-                                    IconButton(
-                                        onPressed: (){
-                                          Get.to(const CompanydetailsView());
-                                        },
-                                        icon: const Icon(Icons.description,color: Colors.orange,)
-                                    ),
-                                    IconButton(
-                                        onPressed: (){
-                                          Get.to(CompanyupdateView());
-                                        },
-                                        icon: const Icon(Icons.edit_document,color: Colors.green,)
-                                    ),
-                                    IconButton(
-                                        onPressed: (){},
-                                        icon: const Icon(Icons.delete,color: Colors.red,)
-                                    ),
-
-                                  ],
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        );
-                    },
-                  ),
-                )
-              ],
+                          );
+                        },
+                      ),
+                    );
+                  })
+                ],
+              ),
             ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }

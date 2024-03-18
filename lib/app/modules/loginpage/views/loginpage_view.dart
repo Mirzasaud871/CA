@@ -18,125 +18,132 @@ class LoginpageView extends GetView<LoginpageController> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
 
     //Login Screen
     Widget loginScreen() {
       return Obx(() {
         return loginController.isLoading == true
             ? LoadingAnimationWidget.staggeredDotsWave(
-            color: secondaryColor, size: 50)
+                color: secondaryColor, size: 50)
             : DelayedDisplay(
-          slidingBeginOffset: const Offset(0, -0.4),
-          delay: const Duration(milliseconds: 300),
-          child: Form(
-            key: loginController.formKey,
-            child: Column(
-              children: [
-                SizedBox(height: size.width / 10),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text("Login Now",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                ),
-                SizedBox(height: size.width / 30),
-                ///Mobile Number TextField
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: size.width,
-                    height: size.width / 7,
-                    child: TextFormField(
-                      maxLength: 30,
-                      controller: loginController.emailController,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        counterText: '',
-                        alignLabelWithHint: true,
-                        hintStyle: TextStyle(color: primaryColor,fontSize: 14),
-                        hintText: "Enter Phone or Email",
-                        prefixIcon: Icon(Icons.phone, color: primaryColor,),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.amber,width: 2),
+                slidingBeginOffset: const Offset(0, -0.4),
+                delay: const Duration(milliseconds: 300),
+                child: Form(
+                  key: loginController.formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: size.width / 10),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          "Login Now",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                //Login Button
-                RoundedLoadingButton(
-                  color: primaryColor,
-                  controller: loginController.loadingButtonController,
-                  onPressed: (){
-                    if(loginController.emailController.text.isEmpty){
-                      loginController.loadingButtonController.reset();
-                      Get.snackbar(
-                          'Error',
-                          "PLease enter correct mail",
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: redColor
-                      );
-                    }else if(loginController.emailController.text.isEmail){
-                      loginController.loginCheckuser(loginController.emailController.text);
-                    }else{
-                      loginController.loadingButtonController.reset();
-                      Get.snackbar(
-                          'Error',
-                          "PLease enter correct mail",
-                          snackPosition: SnackPosition.BOTTOM,
-                          backgroundColor: redColor
-                      );
-                    }
-                    // loginController.formKey.currentState!.validate();
-                    // if(loginController.isPhoneNumber.value == true && loginController.isEmail.value == false){
-                    //   print('Phone Number :- ${loginController.phoneNumber.text}');
-                    //
-                    //   await loginController.signInPhoneNumber(
-                    //       myPhoneNumber: loginController.phoneNumber.text);
-                    //   Timer(Duration(seconds: loginController.phoneNumber.text.length != 10
-                    //           ? 0
-                    //           : 10), () {
-                    //     loginController.emailController.clear();
-                    //     loginController.loadingButtonController.reset();
-                    //     loginController.isPhoneNumber.value = false;
-                    //     loginController.isEmail.value = false;
-                    //   });
-                    // }else if(loginController.isPhoneNumber.value == false && loginController.isEmail.value == true){
-                    //   print('Email Triggered ${loginController.emailController.text}',);
-                    // }
+                      SizedBox(height: size.width / 30),
 
-                  },
-                  child: const DelayedDisplay(
-                    slidingBeginOffset: Offset(0, -0.4),
-                    delay: Duration(milliseconds: 300),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Stack(
-                        children: [
-                          Center(
-                              child: Text(
-                                'Next',
-                                style: buttonTitleLight,
-                              )),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              size: 20,
-                              color: Colors.white,
+                      ///Mobile Number TextField
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: size.width,
+                          height: size.width / 7,
+                          child: TextFormField(
+                            maxLength: 30,
+                            controller: loginController.emailController,
+                            keyboardType: TextInputType.text,
+                            decoration: const InputDecoration(
+                              counterText: '',
+                              alignLabelWithHint: true,
+                              hintStyle:
+                                  TextStyle(fontSize: 14),
+                              hintText: "Please enter email",
+                              prefixIcon: Icon(
+                                Icons.phone,
+                                color: primaryColor,
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: primaryColor, width: 2),
+                              ),
                             ),
-                          )
-                        ],
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 20),
+                      //Login Button
+                      RoundedLoadingButton(
+                        color: primaryColor,
+                        controller: loginController.loadingButtonController,
+                        onPressed: () {
+                          if (loginController.emailController.text.isEmpty) {
+                            loginController.loadingButtonController.reset();
+                            Get.snackbar('Error', "PLease enter correct mail",
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: redColor);
+                          } else if (loginController
+                              .emailController.text.isEmail) {
+                            loginController.loginCheckuser(
+                                loginController.emailController.text);
+                            Timer(Duration(seconds:15), () {
+                                loginController.emailController.clear();
+                                loginController.loadingButtonController.reset();
+                              });
+                          } else {
+                            loginController.loadingButtonController.reset();
+                            Get.snackbar('Error', "PLease enter correct mail",
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: redColor);
+                          }
+                          // loginController.formKey.currentState!.validate();
+                          // if(loginController.isPhoneNumber.value == true && loginController.isEmail.value == false){
+                          //   print('Phone Number :- ${loginController.phoneNumber.text}');
+                          //
+                          //   await loginController.signInPhoneNumber(
+                          //       myPhoneNumber: loginController.phoneNumber.text);
+                          //   Timer(Duration(seconds: loginController.phoneNumber.text.length != 10
+                          //           ? 0
+                          //           : 10), () {
+                          //     loginController.emailController.clear();
+                          //     loginController.loadingButtonController.reset();
+                          //     loginController.isPhoneNumber.value = false;
+                          //     loginController.isEmail.value = false;
+                          //   });
+                          // }else if(loginController.isPhoneNumber.value == false && loginController.isEmail.value == true){
+                          //   print('Email Triggered ${loginController.emailController.text}',);
+                          // }
+                        },
+                        child: const DelayedDisplay(
+                          slidingBeginOffset: Offset(0, -0.4),
+                          delay: Duration(milliseconds: 300),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            child: Stack(
+                              children: [
+                                Center(
+                                    child: Text(
+                                  'Next',
+                                  style: buttonTitleLight,
+                                )),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        );
+              );
       });
     }
 
@@ -161,8 +168,8 @@ class LoginpageView extends GetView<LoginpageController> {
                   style: subTitleDark,
                   children: [
                     TextSpan(
-                        text: 'On Your Mobile (+91-${loginController.phoneNumber
-                            .text})',
+                        text:
+                            'On Your Mobile (+91-${loginController.phoneNumber.text})',
                         style: const TextStyle(
                             fontSize: 14,
                             color: Colors.black,
@@ -232,9 +239,9 @@ class LoginpageView extends GetView<LoginpageController> {
                     children: [
                       Center(
                           child: Text(
-                            'VERIFY OTP',
-                            style: buttonTitleLight,
-                          )),
+                        'VERIFY OTP',
+                        style: buttonTitleLight,
+                      )),
                       Align(
                         alignment: Alignment.centerRight,
                         child: Icon(
@@ -248,13 +255,20 @@ class LoginpageView extends GetView<LoginpageController> {
                 ),
               ),
             ),
-            const SizedBox(height: 14,),
+            const SizedBox(
+              height: 14,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text("Did Not Received?"),
-                TextButton(onPressed: (){}, child: const Text("Resend",style: TextStyle(fontWeight: FontWeight.bold),)),
+                TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      "Resend",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
               ],
             )
           ],
@@ -263,7 +277,7 @@ class LoginpageView extends GetView<LoginpageController> {
     }
 
     //Password Screen
-    Widget passwordScreen(){
+    Widget passwordScreen() {
       return DelayedDisplay(
         slidingBeginOffset: const Offset(0, -0.4),
         delay: const Duration(milliseconds: 300),
@@ -272,23 +286,37 @@ class LoginpageView extends GetView<LoginpageController> {
           child: Column(
             children: [
               SizedBox(height: size.width / 25),
-              const Text("Please enter your password",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+              const Text(
+                "Please enter your password",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: size.width / 20),
 
               //Passs TextField
               TextFormField(
-                validator: (val){
-                  if(val!.isEmpty){
+                validator: (val) {
+                  if (val!.isEmpty) {
                     return "required";
-                  }else{
-                  }
+                  } else {}
                   return val;
                 },
                 controller: loginController.passController,
-                decoration: const InputDecoration(
+                obscureText: loginController.passwordVisible.value,
+                decoration: InputDecoration(
                   hintText: "Password",
-                  suffixIcon: Icon(Icons.visibility)
-                )
+                  suffixIcon: IconButton(
+                    icon: Icon(loginController.passwordVisible.value
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                    onPressed: () {
+                      loginController.passwordVisible.value =
+                          !loginController.passwordVisible.value;
+                    },
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: primaryColor, width: 2),
+                  ),
+                ),
               ),
 
               SizedBox(height: size.width / 20),
@@ -298,25 +326,26 @@ class LoginpageView extends GetView<LoginpageController> {
                 color: primaryColor,
                 controller: loginController.loadingButtonController,
                 onPressed: () async {
-                    SharedPreferences sharedPrefrence = await SharedPreferences.getInstance();
+                  SharedPreferences sharedPrefrence =
+                      await SharedPreferences.getInstance();
 
-                    loginController.loginUser(loginController.emailController.text, loginController.passController.text).then((value){
-                        bool? isLogin = sharedPrefrence.getBool(isUserLogin);
-                          if(isLogin!){
-                            loginController.emailController.clear();
-                            loginController.passController.clear();
-                          }else{
-                            loginController.passController.clear();
-                            loginController.loadingButtonController.reset();
-                            Get.snackbar(
-                                "Wrong Password",
-                                "Please enter Valid Password",
-                              backgroundColor: Colors.red,
-                                snackPosition: SnackPosition.BOTTOM
-                            );
-                          }
+                  loginController
+                      .loginUser(loginController.emailController.text,
+                          loginController.passController.text)
+                      .then((value) {
+                    bool? isLogin = sharedPrefrence.getBool(isUserLogin);
+                    if (isLogin!) {
+                      loginController.emailController.clear();
+                      loginController.passController.clear();
+                    } else {
+                      loginController.passController.clear();
+                      loginController.loadingButtonController.reset();
+                      Get.snackbar(
+                          "Wrong Password", "Please enter Valid Password",
+                          backgroundColor: Colors.red,
+                          snackPosition: SnackPosition.BOTTOM);
                     }
-                    );
+                  });
                   // String userPassword = loginController.passController.text;
                   // print(loginController.verifyPassword);
                   // loginController.loginUser(loginController.verifyResult, userPassword,);
@@ -337,9 +366,9 @@ class LoginpageView extends GetView<LoginpageController> {
                       children: [
                         Center(
                             child: Text(
-                              'Login',
-                              style: buttonTitleLight,
-                            )),
+                          'Login',
+                          style: buttonTitleLight,
+                        )),
                         Align(
                           alignment: Alignment.centerRight,
                           child: Icon(
@@ -353,17 +382,22 @@ class LoginpageView extends GetView<LoginpageController> {
                   ),
                 ),
               ),
-              const SizedBox(height: 14,),
+              const SizedBox(
+                height: 14,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text("Change Email Address?"),
                   TextButton(
-                      onPressed: (){
+                      onPressed: () {
                         loginController.isEmail.value = false;
-                        },
-                      child: const Text("Back",style: TextStyle(fontWeight: FontWeight.bold),)),
+                      },
+                      child: const Text(
+                        "Back",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
                 ],
               )
             ],
@@ -373,7 +407,7 @@ class LoginpageView extends GetView<LoginpageController> {
     }
 
     //Registration Screen
-    Widget registerScreen(){
+    Widget registerScreen() {
       return DelayedDisplay(
         slidingBeginOffset: const Offset(0, -0.4),
         delay: const Duration(milliseconds: 300),
@@ -382,42 +416,49 @@ class LoginpageView extends GetView<LoginpageController> {
           child: Column(
             children: [
               SizedBox(height: size.width / 25),
-              const Text("Registration",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+              const Text(
+                "Registration",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: size.width / 20),
 
               TextFormField(
-                readOnly: true,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                  readOnly: true,
                   decoration: InputDecoration(
                       hintText: "${loginController.emailController.text}",
-                      suffixIcon: Icon(Icons.check,color: Colors.green,),
+                      suffixIcon: Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      ),
                       border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(100))
-        )
-                  )
-              ),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100))))),
+              SizedBox(height: size.width / 20),
+
+              TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return "required";
+                    }
+                    return null;
+                  },
+                  controller: loginController.nameController,
+                  decoration: const InputDecoration(
+                      hintText: "Name",
+                      suffixIcon: Icon(Icons.person),
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100))))),
               SizedBox(height: size.width / 20),
               TextFormField(
-                validator: (val){
-                  if(val!.isEmpty){
-                    return "required";
-                  }
-                  return null;
-                },
-                controller: loginController.nameController,
-                decoration: const InputDecoration(
-                  hintText: "Name",
-                  suffixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(100))
-                  )
-                )
-              ),
-              SizedBox(height: size.width / 20),
-              TextFormField(
-                maxLength: 10,
-                keyboardType: TextInputType.number,
-                  validator: (val){
-                    if(val!.isEmpty){
+
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  maxLength: 10,
+                  keyboardType: TextInputType.number,
+                  validator: (val) {
+                    if (val!.isEmpty) {
                       return "required";
                     }
                     return null;
@@ -427,48 +468,38 @@ class LoginpageView extends GetView<LoginpageController> {
                       hintText: "Mobile No.",
                       suffixIcon: Icon(Icons.phone),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(100))
-                      )
-                  )
-              ),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(100))))),
               SizedBox(height: size.width / 20),
 
               //OTP Verification Button
               RoundedLoadingButton(
                 color: primaryColor,
                 controller: loginController.loadingButtonController,
-                onPressed: (){
-                  if(loginController.nameController.text.isEmpty && loginController.mobileController.text.isEmpty){
+                onPressed: () {
+                  if (loginController.nameController.text.isEmpty &&
+                      loginController.mobileController.text.isEmpty) {
                     loginController.formKey.currentState!.validate();
-                    Get.snackbar(
-                        'Error',
-                        "PLease fill text field",
+                    Get.snackbar('Error', "PLease fill text field",
                         snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: redColor
-                    );
-                  }else if( loginController.nameController != "" && loginController.mobileController.text.length == 10){
+                        backgroundColor: redColor);
+                  } else if (loginController.nameController != "" &&
+                      loginController.mobileController.text.length == 10) {
                     loginController.getRegister(
                         loginController.emailController.text,
                         loginController.nameController.text,
-                        loginController.mobileController.text
-                    );
+                        loginController.mobileController.text);
 
-                    print("successfully registered");
-                    loginController.nameController.clear();
-                    loginController.mobileController.clear();
-                  }else{
-                    Get.snackbar(
-                        'Error',
-                        "",
+                  } else {
+                    Get.snackbar('Error', "",
                         snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: redColor
-                    );
+                        backgroundColor: redColor);
                   }
-                  Timer(Duration(
-                    seconds: loginController.nameController.text.isEmpty
-                        ? 0
-                        :15
-                  ), () {
+                  Timer(
+                      Duration(
+                          seconds: loginController.nameController.text.isEmpty
+                              ? 0
+                              : 10), () {
                     loginController.loadingButtonController.reset();
                   });
                   // String userPassword = loginController.passController.text;
@@ -491,9 +522,9 @@ class LoginpageView extends GetView<LoginpageController> {
                       children: [
                         Center(
                             child: Text(
-                              'Register',
-                              style: buttonTitleLight,
-                            )),
+                          'Register',
+                          style: buttonTitleLight,
+                        )),
                         Align(
                           alignment: Alignment.centerRight,
                           child: Icon(
@@ -507,13 +538,21 @@ class LoginpageView extends GetView<LoginpageController> {
                   ),
                 ),
               ),
-              const SizedBox(height: 14,),
+              const SizedBox(
+                height: 14,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text("Change Email Address?"),
-                  TextButton(onPressed: ()=> loginController.isCheckEmail.value = false, child: const Text("Back",style: TextStyle(fontWeight: FontWeight.bold),)),
+                  TextButton(
+                      onPressed: () =>
+                          loginController.isCheckEmail.value = false,
+                      child: const Text(
+                        "Back",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
                 ],
               )
             ],
@@ -523,7 +562,7 @@ class LoginpageView extends GetView<LoginpageController> {
     }
 
     //create password
-    Widget createPassScreen(){
+    Widget createPassScreen() {
       return DelayedDisplay(
         slidingBeginOffset: const Offset(0, -0.4),
         delay: const Duration(milliseconds: 300),
@@ -540,21 +579,21 @@ class LoginpageView extends GetView<LoginpageController> {
                   children: [
                     Text("Create Password"),
                     const SizedBox(height: 30),
-
                     TextFormField(
                         readOnly: true,
                         decoration: InputDecoration(
                             hintText: "${loginController.emailController.text}",
-                            suffixIcon: Icon(Icons.check,color: Colors.green,),
+                            suffixIcon: Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            ),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(100))
-                            )
-                        )
-                    ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100))))),
                     SizedBox(height: 20),
                     TextFormField(
-                        validator: (val){
-                          if(val!.isEmpty){
+                        validator: (val) {
+                          if (val!.isEmpty) {
                             return "required";
                           }
                           return null;
@@ -564,14 +603,13 @@ class LoginpageView extends GetView<LoginpageController> {
                             hintText: "Passsword",
                             suffixIcon: Icon(Icons.visibility),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(100))
-                            )
-                        )
-                    ),
-                    SizedBox(height:20),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100))))),
+                    SizedBox(height: 20),
                     TextFormField(
-                        validator: (val){
-                          if(loginController.passController.text != loginController.confirmPassController.text){
+                        validator: (val) {
+                          if (loginController.passController.text !=
+                              loginController.confirmPassController.text) {
                             return "required Same Password";
                           }
                           return null;
@@ -581,40 +619,37 @@ class LoginpageView extends GetView<LoginpageController> {
                             hintText: "Confrim Password",
                             suffixIcon: Icon(Icons.visibility),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(100))
-                            )
-                        )
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100))))),
+                    SizedBox(
+                      height: 20,
                     ),
-
-                    SizedBox(height: 20,),
                     RoundedLoadingButton(
                       color: primaryColor,
                       controller: loginController.loadingButtonController,
-                      onPressed: (){
+                      onPressed: () {
                         loginController.formKey.currentState!.validate();
-                        if(loginController.passController.text == loginController.confirmPassController.text){
+                        if (loginController.passController.text ==
+                            loginController.confirmPassController.text) {
                           loginController.createPassword(
                               loginController.emailController.text,
                               loginController.passController.text,
-                              loginController.confirmPassController.text
-                          );
+                              loginController.confirmPassController.text);
                           loginController.isCreatepass.value = false;
-                        }else{
-                          Get.snackbar(
-                              'Error',
-                              "Required same password",
+                        } else {
+                          Get.snackbar('Error', "Required same password",
                               snackPosition: SnackPosition.BOTTOM,
-                              backgroundColor: redColor
-                          );
+                              backgroundColor: redColor);
                           loginController.loadingButtonController.reset();
                         }
 
-                            Timer(Duration(
-                        seconds: loginController.passController.text.isEmpty
-                            ? 0
-                            :15
-                        ), () {
-                              loginController.loadingButtonController.reset();
+                        Timer(
+                            Duration(
+                                seconds:
+                                    loginController.passController.text.isEmpty
+                                        ? 0
+                                        : 15), () {
+                          loginController.loadingButtonController.reset();
                         });
                       },
                       child: const DelayedDisplay(
@@ -626,9 +661,9 @@ class LoginpageView extends GetView<LoginpageController> {
                             children: [
                               Center(
                                   child: Text(
-                                    'Create Password',
-                                    style: buttonTitleLight,
-                                  )),
+                                'Create Password',
+                                style: buttonTitleLight,
+                              )),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Icon(
@@ -661,7 +696,10 @@ class LoginpageView extends GetView<LoginpageController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Hello, \nWelcome Back",style: titleDark,),
+                    const Text(
+                      "Hello, \nWelcome Back",
+                      style: titleDark,
+                    ),
                     //Logo Image
 
                     DelayedDisplay(
@@ -670,15 +708,27 @@ class LoginpageView extends GetView<LoginpageController> {
                       child: Column(
                         children: [
                           const SizedBox(height: 30),
-                          Image.asset("assets/images/Loginimage.png",height: 250,),
+                          Image.asset(
+                            "assets/images/Loginimage.png",
+                            height: 250,
+                          ),
                           SizedBox(height: size.width * 0.05),
-                          loginController.isCheckEmail.value == false && loginController.isEmail.value == true
-                              ? AnimatedSwitcher(duration: const Duration(milliseconds: 200), child: passwordScreen())
-                              : loginController.isCheckEmail.value == true && loginController.isEmail.value == false
-                                ? registerScreen()
-                              : loginController.isCheckEmail.value == false && loginController.isEmail.value == false && loginController.isCreatepass.value == true
-                                ? createPassScreen()
-                                : loginScreen()
+                          loginController.isCheckEmail.value == false &&
+                                  loginController.isEmail.value == true
+                              ? AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 200),
+                                  child: passwordScreen())
+                              : loginController.isCheckEmail.value == true &&
+                                      loginController.isEmail.value == false
+                                  ? registerScreen()
+                                  : loginController.isCheckEmail.value ==
+                                              false &&
+                                          loginController.isEmail.value ==
+                                              false &&
+                                          loginController.isCreatepass.value ==
+                                              true
+                                      ? createPassScreen()
+                                      : loginScreen()
                         ],
                       ),
                     ),
@@ -687,7 +737,6 @@ class LoginpageView extends GetView<LoginpageController> {
               ),
             ),
           );
-        })
-    );
+        }));
   }
 }

@@ -1,8 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 //Blue Color
-const Color primaryColor = Colors.green;
+const Color primaryColor = Colors.blue;
 //Yellow Color
 const Color secondaryColor = Colors.blue;
 //Red Color
@@ -16,6 +18,7 @@ const user_Id = 'user_id';
 const userImage = 'user_image';
 const userEmail = 'user_email';
 const userName = 'user_name';
+const userMobile = 'user_mobile';
 
 const TextStyle appBarTitle = TextStyle(
   color: Colors.white,
@@ -109,7 +112,6 @@ const TextStyle buttonsubTitleDark = TextStyle(
     letterSpacing: 0.5
 );
 
-
  const addDomain = "zynomatrix";
  const baseURL = "https://apis.rizrv.in/api/";
  const loginURL = 'customer/web/$addDomain/auth';
@@ -122,6 +124,19 @@ const TextStyle buttonsubTitleDark = TextStyle(
  const registrationURL = 'company/front/customer/$addDomain';
  const changePasswordURL = 'customer/web/$addDomain/password/create';
  const profileURL = "customer/web/$addDomain/profile";
+ const updateProfileURL = "customer/web/$addDomain/profile/update";
+ const documentURL = "customer/web/$addDomain/documents";
+ const myOrderURL = "customer/web/$addDomain/orders";
+ const familyMembersURL = "customer/web/$addDomain/family/members";
+ const familyStoresURL = "customer/web/$addDomain/family/member/store";
+ const companyURL = "customer/company/data/$addDomain";
+ const companyViewURL = "customer/company/data/$addDomain/single/";
+ const placeOrderURL = "company/front/customer/place-order/$addDomain";
+ const applyCouponURL = "customer/company/data/$addDomain/coupon/show";
+ const addDocumentURL = "customer/web/$addDomain/documents/upload";
+ const addCompanyURL = "customer/company/data/$addDomain/store";
+ const addDirectorsURL = "customer/company/data/$addDomain/director/add";
+ const ledgerURL = "customer/web/$addDomain/ledger";
 
 
 

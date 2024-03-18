@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vakil99/app/modules/add_directors/views/add_directors_view.dart';
 import 'package:vakil99/app/modules/loginpage/views/loginpage_view.dart';
 import 'package:vakil99/app/routes/app_pages.dart';
 import 'package:vakil99/constants.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: 'Poppins'),
       title: "CA App",
       home: isLogin == true ?BottombarView() : LoginpageView(),
+      // home: AddDirectorsView(),
       getPages: AppPages.routes,
     );
   }

@@ -38,6 +38,10 @@ abstract class Routes {
   static const COMPANYUPDATE = _Paths.COMPANYUPDATE;
   static const MYORDER_DOCUMENT = _Paths.MYORDER_DOCUMENT;
   static const CREATEPASSWORD = _Paths.CREATEPASSWORD;
+  static const ADD_DIRECTORS = _Paths.ADD_DIRECTORS;
+  static const ADDFORM = _Paths.ADDFORM;
+  static const LEDGER = _Paths.LEDGER;
+  static const IMPLINKS = _Paths.IMPLINKS;
 }
 
 abstract class _Paths {
@@ -77,4 +81,8 @@ abstract class _Paths {
   static const COMPANYUPDATE = '/companyupdate';
   static const MYORDER_DOCUMENT = '/myorder-document';
   static const CREATEPASSWORD = '/createpassword';
+  static const ADD_DIRECTORS = '/add-directors';
+  static const ADDFORM = '/addform';
+  static const LEDGER = '/ledger';
+  static const IMPLINKS = '/implinks';
 }

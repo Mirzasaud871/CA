@@ -12,12 +12,16 @@ class HomeController extends GetxController {
 
   RxList<CategoriesModel> categories = <CategoriesModel>[].obs;
   RxList<FeaturedServiceModel> featuredServices = <FeaturedServiceModel>[].obs;
+  RxString username = ''.obs;
+  RxString useremail = ''.obs;
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController searchController = TextEditingController();
 
   @override
   void onInit() {
     super.onInit();
+    getInfo();
     getCategories();
     getFeatureCategory();
     show();
@@ -36,9 +40,18 @@ class HomeController extends GetxController {
     });
   }
 
+  void navigateToPage1() {
+   print("Startup pr phocha h");
+  }
+
+  void navigateToPage2() {
+    print("category pr phocha h");
+  }
+
   getFeatureCategory() async{
     featuredServices.clear();
     var res = await ApiServices().getApi(featuredCategoryURL);
+      print(res);
     res.fold((l){
       if(l['status'] == 200){
         List featureCategory = l['featured_category'];
@@ -69,9 +82,16 @@ class HomeController extends GetxController {
     sharedPreferences.getString(userName);
     sharedPreferences.getString(userEmail);
     sharedPreferences.getString(userToken);
+    sharedPreferences.getInt(user_Id);
     print("print ${sharedPreferences.getString(userToken)}");
     print("print ${sharedPreferences.getString(userEmail)}");
     print("print ${sharedPreferences.getString(userName)}");
+    print("print ${sharedPreferences.getInt(user_Id)}");
   }
 
+  getInfo() async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    username.value = preferences.getString(userName)!;
+    useremail.value = preferences.getString(userEmail)!;
+  }
 }
