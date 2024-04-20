@@ -185,96 +185,93 @@ class StartupView extends GetView<StartupController> {
                     ListView.builder(
                         itemCount: categoryItemList!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return DelayedDisplay(
-                            delay: const Duration(milliseconds: 300),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  margin: EdgeInsets.symmetric(vertical: 12.0,horizontal: 06),
-                                  height: 110,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(4.0),
-                                    border: Border.all(color: Colors.grey)
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                          child: categoryItemList![index].image !=
-                                              null
-                                              ? Image.network(
-                                              "${categoryItemList![index].image}")
-                                              : Image.asset(
-                                              "assets/images/trademark/fram1.jpg"),
-                                        ),
-                                      ),
-                                      SizedBox(width: 15,),
-                                      Expanded(
-                                        flex: 3,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children:[
-                                            SizedBox(height: 12,),
-                                            Container(
-                                              child: Text("${categoryItemList![index].name}",style: TextStyle(
-                                                fontSize: screenWidth * 0.045,
-                                                fontWeight: FontWeight.bold,
-                                                overflow: TextOverflow.ellipsis,
-                                                color: Colors.red
-                                              ),),
-                                            ),
-                                            SizedBox(height: 4),
-                                            Container(
-                                              child: Text("Market Price : ${categoryItemList![index].marketPrice}",style: TextStyle(
-                                                  fontSize: screenWidth * 0.035,
-                                                  fontWeight: FontWeight.bold,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                  color: Colors.blue
-                                              ),),
-                                            ),
-                                            Container(
-                                              child: Text("Offer Price: ${categoryItemList![index].price}",style: TextStyle(
-                                                  fontSize: screenWidth * 0.040,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.green
-                                              ),),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
+                          return Stack(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(10.0),
+                                margin: EdgeInsets.symmetric(vertical: 12.0,horizontal: 06),
+                                height: 110,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  border: Border.all(color: Colors.grey)
                                 ),
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: InkWell(
-                                    onTap: (){
-                                      Get.to(() => CheckoutView(),
-                                          arguments: categoryItemList![index]
-                                              .slug
-                                      );
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(2.0),
-                                      margin: EdgeInsets.symmetric(horizontal: 5.0,vertical: 4.0),
-                                      height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(100),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        child: categoryItemList![index].image !=
+                                            null
+                                            ? Image.network(
+                                            "${categoryItemList![index].image}")
+                                            : Image.asset(
+                                            "assets/images/trademark/fram1.jpg"),
                                       ),
-                                      child:Icon(Icons.add_shopping_cart,size: 20,color: Colors.white,),
                                     ),
+                                    SizedBox(width: 15,),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children:[
+                                          SizedBox(height: 12,),
+                                          Container(
+                                            child: Text("${categoryItemList![index].name}",style: TextStyle(
+                                              fontSize: screenWidth * 0.045,
+                                              fontWeight: FontWeight.bold,
+                                              overflow: TextOverflow.ellipsis,
+                                              color: Colors.red
+                                            ),),
+                                          ),
+                                          SizedBox(height: 4),
+                                          Container(
+                                            child: Text("Market Price : ${categoryItemList![index].marketPrice}",style: TextStyle(
+                                                fontSize: screenWidth * 0.035,
+                                                fontWeight: FontWeight.bold,
+                                                decoration: TextDecoration
+                                                    .lineThrough,
+                                                color: Colors.blue
+                                            ),),
+                                          ),
+                                          Container(
+                                            child: Text("Offer Price: ${categoryItemList![index].price}",style: TextStyle(
+                                                fontSize: screenWidth * 0.040,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.green
+                                            ),),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                              ),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: InkWell(
+                                  onTap: (){
+                                    Get.to(() => CheckoutView(),
+                                        arguments: categoryItemList![index]
+                                            .slug
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(2.0),
+                                    margin: EdgeInsets.symmetric(horizontal: 5.0,vertical: 4.0),
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    child:Icon(Icons.add_shopping_cart,size: 20,color: Colors.white,),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           );
                         }),
 

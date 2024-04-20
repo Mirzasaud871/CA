@@ -4,27 +4,55 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vakil99/Models/CategoryModel.dart';
+import 'package:vakil99/Models/SearchModel.dart';
 import 'package:vakil99/apiservices.dart';
+import 'package:vakil99/app/modules/details/views/details_view.dart';
 import '../../../../Models/FeaturedServicesModel.dart';
 import '../../../../constants.dart';
+import '../../startup/views/startup_view.dart';
 
 class HomeController extends GetxController {
 
   RxList<CategoriesModel> categories = <CategoriesModel>[].obs;
   RxList<FeaturedServiceModel> featuredServices = <FeaturedServiceModel>[].obs;
-  RxString username = ''.obs;
-  RxString useremail = ''.obs;
+  RxList<CaServices> featuredServicesSearch = <CaServices>[].obs;
+  final RxList<CaServices> filteredData = <CaServices>[].obs;
+
+  var username = ''.obs;
+  var useremail = ''.obs;
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController searchController = TextEditingController();
 
+
+  @override
+  void onClose() {
+    super.onClose();
+    searchController.dispose();
+  }
+
   @override
   void onInit() {
-    super.onInit();
-    getInfo();
+    searchSevice();
     getCategories();
+    getInfo();
     getFeatureCategory();
-    show();
+    super.onInit();
+  }
+
+  void filterSearchResults(String query) {
+    if (query.isEmpty) {
+      // If query is empty, show all items
+      filteredData.assignAll(featuredServicesSearch);
+      filteredData.clear();
+      return;
+    }
+
+    // Filter items based on the query
+    filteredData.assignAll(featuredServicesSearch
+        .where((service) =>
+        service.name!.toLowerCase().contains(query.toLowerCase()))
+        .toList());
   }
 
   getCategories() async{
@@ -40,18 +68,21 @@ class HomeController extends GetxController {
     });
   }
 
-  void navigateToPage1() {
-   print("Startup pr phocha h");
-  }
-
-  void navigateToPage2() {
-    print("category pr phocha h");
+  void navigateToPage(String routeId , int index) {
+   if(routeId == "1"){
+     print("category pr phocha h");
+     Get.to(() => DetailsView(), arguments:
+     featuredServices[index].slug);
+   }else{
+     print("service pr phocha h");
+     Get.to(StartupView(categories[index].companyService));
+   }
   }
 
   getFeatureCategory() async{
     featuredServices.clear();
     var res = await ApiServices().getApi(featuredCategoryURL);
-      print(res);
+      print("services api respons $res");
     res.fold((l){
       if(l['status'] == 200){
         List featureCategory = l['featured_category'];
@@ -64,34 +95,37 @@ class HomeController extends GetxController {
     });
   }
 
-  getSearch() async{
+  searchSevice() async{
     var res = await ApiServices().getApi(searchURL+searchController.text);
     res.fold((l){
       if(l['status'] == 200){
-        print("data serach api $res");
+        print("not found $res");
+        // print("data serach api $res");
+        List searchServices = l['ca_services'];
+        featuredServicesSearch.addAll(searchServices.map((val2) => CaServices.fromJson(val2)));
       }else{
-        print("not found");
       }
     }, (r){
 
     });
   }
 
-  show() async{
+  getInfo() async{
+    print("object information");
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.getString(userName);
-    sharedPreferences.getString(userEmail);
-    sharedPreferences.getString(userToken);
-    sharedPreferences.getInt(user_Id);
+    username.value = sharedPreferences.getString(userName)!;
+    useremail.value = sharedPreferences.getString(userEmail)!;
+    print("object information details");
+    update();
     print("print ${sharedPreferences.getString(userToken)}");
     print("print ${sharedPreferences.getString(userEmail)}");
     print("print ${sharedPreferences.getString(userName)}");
     print("print ${sharedPreferences.getInt(user_Id)}");
   }
 
-  getInfo() async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    username.value = preferences.getString(userName)!;
-    useremail.value = preferences.getString(userEmail)!;
-  }
+}
+
+class searchServiceModel {
+  final String name;
+  searchServiceModel({required this.name});
 }

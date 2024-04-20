@@ -34,6 +34,7 @@ class AddcompanyView extends GetView<AddcompanyController> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: addcompanyController.foreKey,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +114,13 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Register No. is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.registerController,
                         decoration: InputDecoration(
                           hintText: "Register",
@@ -131,7 +138,13 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                      validator: (value){
+                        if(value!.isEmpty){
+                          return "Company is required";
+                        }
+                        return null;
+                      },
                       controller: addcompanyController.companyController,
                         decoration: InputDecoration(
                           hintText: "Comapany",
@@ -149,7 +162,13 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "ROC is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.rocController,
                         decoration: InputDecoration(
                           hintText: "ROC",
@@ -208,7 +227,13 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Subcategory is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.subCategoryController,
                         decoration: InputDecoration(
                           hintText: "Subcategory",
@@ -306,7 +331,13 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Authorised is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.authorizedController,
                         decoration: InputDecoration(
                           hintText: "Authorised",
@@ -324,7 +355,13 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Capital is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.paidController,
                         decoration: InputDecoration(
                           hintText: "Paid Up Capital",
@@ -353,7 +390,13 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "email is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.emailController,
                         decoration: InputDecoration(
                           hintText: "Email",
@@ -371,14 +414,20 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Password is required";
+                          }
+                          return null;
+                        },
                         controller: addcompanyController.phoneController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: "Number",
                           labelText: "Phone Number",
                           focusColor: primaryColor,
-                          suffixIcon: Icon(Icons.file_copy),
+                          suffixIcon: Icon(Icons.phone),
                           suffixIconColor: primaryColor,
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.green)),
@@ -390,13 +439,19 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Country is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.countryController,
                         decoration: InputDecoration(
                           hintText: "Country",
                           labelText: "Country",
                           focusColor: primaryColor,
-                          suffixIcon: Icon(Icons.file_copy),
+                          suffixIcon: Icon(Icons.travel_explore),
                           suffixIconColor: primaryColor,
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.green)),
@@ -408,13 +463,19 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "State is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.stateController,
                         decoration: InputDecoration(
                           hintText: "State",
                           labelText: "State",
                           focusColor: primaryColor,
-                          suffixIcon: Icon(Icons.file_copy),
+                          suffixIcon: Icon(Icons.public),
                           suffixIconColor: primaryColor,
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.green)),
@@ -426,13 +487,19 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "City is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.cityController,
                         decoration: InputDecoration(
                           hintText: "City",
                           labelText: "City",
                           focusColor: primaryColor,
-                          suffixIcon: Icon(Icons.file_copy),
+                          suffixIcon: Icon(Icons.apartment),
                           suffixIconColor: primaryColor,
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.green)),
@@ -444,13 +511,19 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Code is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.zipController,
                         decoration: InputDecoration(
                           hintText: "Zip Code",
                           labelText: "Zip Code",
                           focusColor: primaryColor,
-                          suffixIcon: Icon(Icons.file_copy),
+                          suffixIcon: Icon(Icons.numbers),
                           suffixIconColor: primaryColor,
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.green)),
@@ -462,13 +535,19 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextField(
+                    TextFormField(
+                        validator: (value){
+                          if(value!.isEmpty){
+                            return "Address is required";
+                          }
+                          return null;
+                        },
                       controller: addcompanyController.addressController,
                         decoration: InputDecoration(
                           hintText: "Address - Head Office",
                           labelText: "Street Address",
                           focusColor: primaryColor,
-                          suffixIcon: Icon(Icons.file_copy),
+                          suffixIcon: Icon(Icons.home),
                           suffixIconColor: primaryColor,
                           focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.green)),
@@ -482,26 +561,47 @@ class AddcompanyView extends GetView<AddcompanyController> {
                     ),
                     InkWell(
                       onTap: (){
-                        addcompanyController.addCompanyDetails(
-                          addcompanyController.gstinController.text,
-                          addcompanyController.registerController.text,
-                          addcompanyController.companyController.text,
-                          addcompanyController.rocController.text,
-                          addcompanyController.categorylist.value,
-                          addcompanyController.subCategoryController.text,
-                          addcompanyController.classlist.value,
-                          addcompanyController.listinglist.value,
-                          addcompanyController.authorizedController.text,
-                          addcompanyController.paidController.text,
-
-                          addcompanyController.emailController.text,
-                          addcompanyController.phoneController.text,
-                          addcompanyController.countryController.text,
-                          addcompanyController.stateController.text,
-                          addcompanyController.cityController.text,
-                          addcompanyController.zipController.text,
-                          addcompanyController.addressController.text,
-                        );
+                        if(
+                        addcompanyController.cinController.text.isEmpty &&
+                        addcompanyController.registerController.text.isEmpty &&
+                        addcompanyController.companyController.text.isEmpty &&
+                        addcompanyController.rocController.text.isEmpty &&
+                        addcompanyController.subCategoryController.text.isEmpty &&
+                        addcompanyController.authorizedController.text.isEmpty &&
+                        addcompanyController.paidController.text.isEmpty &&
+                        // contact details
+                        addcompanyController.emailController.text.isEmpty &&
+                        addcompanyController.phoneController.text.isEmpty &&
+                        addcompanyController.countryController.text.isEmpty &&
+                        addcompanyController.stateController.text.isEmpty &&
+                        addcompanyController.cityController.text.isEmpty &&
+                        addcompanyController.zipController.text.isEmpty &&
+                        addcompanyController.addressController.text.isEmpty
+                        ){
+                          addcompanyController.foreKey.currentState!.validate();
+                        }else {
+                          addcompanyController.addCompanyDetails(
+                            addcompanyController.gstinController.text,
+                            addcompanyController.dropdownlist.value,
+                            addcompanyController.registerController.text,
+                            addcompanyController.companyController.text,
+                            addcompanyController.rocController.text,
+                            addcompanyController.categorylist.value,
+                            addcompanyController.subCategoryController.text,
+                            addcompanyController.classlist.value,
+                            addcompanyController.listinglist.value,
+                            addcompanyController.authorizedController.text,
+                            addcompanyController.paidController.text,
+                            // contact details
+                            addcompanyController.emailController.text,
+                            addcompanyController.phoneController.text,
+                            addcompanyController.countryController.text,
+                            addcompanyController.stateController.text,
+                            addcompanyController.cityController.text,
+                            addcompanyController.zipController.text,
+                            addcompanyController.addressController.text,
+                          );
+                        }
                       },
                       child: Container(
                         height: 50,

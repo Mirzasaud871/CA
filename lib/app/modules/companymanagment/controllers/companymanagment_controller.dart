@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vakil99/Models/CompanyModel.dart';
 import 'package:vakil99/apiservices.dart';
@@ -34,9 +35,36 @@ class CompanymanagmentController extends GetxController {
         List companyData = l['data'];
         companyModellist.addAll(companyData.map((e) => Datum.fromJson(e)));
       }
-      print(res);
     },(r){});
   }
 
+  getDeleteCompany(
+      String companyId
+      ) async{
+    var res = await ApiServices().getApi(companyDeleteURL+companyId);
+    print(companyId);
+    res.fold((l){
+      if(l['status'] == 200){
+        print("api delete response $res");
+        Get.snackbar(
+          "Successful",
+          "Company has been deleted",
+          backgroundColor: Colors.green,
+          snackPosition: SnackPosition.BOTTOM);
+        companyModellist.clear();
+        update();
+        getCompany();
+      }
+    },(r){
+
+    });
+  }
+
+  void removeIndex(int index) {
+    if (index >= 0 && index < companyModellist.length) {
+      companyModellist.removeAt(index);
+      update();
+    }
+  }
 
 }

@@ -1,11 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' as ui;
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'dart:io' as Io;
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vakil99/Models/DocumnetModel.dart';
 import 'package:vakil99/apiservices.dart';
@@ -144,10 +149,60 @@ class DocumentController extends GetxController {
       Get.snackbar("Error", "Internet not available");
       return Right("No Internet available");
     } catch (e) {
-      print('fesn ${e}');
-      Get.snackbar("Error", e.toString());
+      print('fesn $e');
+      Get.snackbar("Error", "Please fill up this Form",backgroundColor: Colors.red,colorText: Colors.white);
       return Right(e);
     }
   }
+
+  Future<void> saveImage(String imagePath) async {
+    try {
+      // Load the image from the given path.
+      ByteData imageData = await rootBundle.load(imagePath);
+      Uint8List bytes = imageData.buffer.asUint8List();
+      // Convert the bytes to an Image object.
+      ui.Image image = await decodeImageFromList(bytes);
+      // Save the image to the gallery.
+      final result = await ImageGallerySaver.saveImage(bytes);
+      // Show a message based on the result.
+      if (result['isSuccess']) {
+        print('Image saved successfully');
+      } else {
+        print('Failed to save image: ${result['error']}');
+      }
+    } catch (e) {
+      print('Error saving image: $e');
+      Get.snackbar(
+          "Error saving image",
+          "$e",
+          backgroundColor: Colors.red
+      );
+    }
+  }
+
+  Future<String> getDownloadDirectory() async {
+    final directory = await getExternalStorageDirectory();
+    return directory!.path;
+  }
+  void downloadFile(String imagePath) async {
+    try {
+      var time = DateTime.now().millisecondsSinceEpoch;
+      var downloadDirectory = await getDownloadDirectory();
+      var path = '$downloadDirectory/image-$time.jpg';
+      var file = File(path);
+      var response = await http.get(Uri.parse(imagePath));
+
+      if (response.statusCode == 200) {
+        await file.writeAsBytes(response.bodyBytes);
+        print('File downloaded to: $path');
+        Get.snackbar("Download Successful", "save path $path");
+      } else {
+        print('Failed to download file: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error downloading file: $e');
+    }
+  }
+
 }
 

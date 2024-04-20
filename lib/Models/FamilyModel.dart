@@ -35,8 +35,8 @@ class Members {
   String? email;
   int? emailVerified;
   String? password;
-  Null? permanentAddress;
-  Null? tempAddress;
+  String? permanentAddress;
+  String? tempAddress;
   String? mobileNo;
   String? pan;
   String? aadhar;

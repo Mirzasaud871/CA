@@ -42,6 +42,11 @@ abstract class Routes {
   static const ADDFORM = _Paths.ADDFORM;
   static const LEDGER = _Paths.LEDGER;
   static const IMPLINKS = _Paths.IMPLINKS;
+  static const ORDERINVOICE = _Paths.ORDERINVOICE;
+  static const ORDERDETAILS = _Paths.ORDERDETAILS;
+  static const FAMILYUPDATE = _Paths.FAMILYUPDATE;
+  static const ORDERDOCUMENT = _Paths.ORDERDOCUMENT;
+  static const POS = _Paths.POS;
 }
 
 abstract class _Paths {
@@ -85,4 +90,9 @@ abstract class _Paths {
   static const ADDFORM = '/addform';
   static const LEDGER = '/ledger';
   static const IMPLINKS = '/implinks';
+  static const ORDERINVOICE = '/orderinvoice';
+  static const ORDERDETAILS = '/orderdetails';
+  static const FAMILYUPDATE = '/familyupdate';
+  static const ORDERDOCUMENT = '/orderdocument';
+  static const POS = '/pos';
 }

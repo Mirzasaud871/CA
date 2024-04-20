@@ -20,6 +20,7 @@ class AddfamilymemberController extends GetxController {
   var aadhaarBack = ''.obs;
   var aadhaarBackBase64 = ''.obs;
   var panCardBase64 = ''.obs;
+  var formKeyFamily = GlobalKey<FormState>();
 
   RxString getaadharImage = ''.obs;
   RxString getpanImage = ''.obs;
@@ -153,8 +154,8 @@ class AddfamilymemberController extends GetxController {
       Get.snackbar("Error", "Internet not available");
       return Right("No Internet available");
     } catch (e) {
+      Get.snackbar("Error", "Please Select Images",backgroundColor: Colors.red);
       print('fesn ${e}');
-      Get.snackbar("Error", e.toString());
       return Right(e);
     }
   }

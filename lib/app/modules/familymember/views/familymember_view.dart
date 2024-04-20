@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:vakil99/app/modules/addfamilymember/views/addfamilymember_view.dart';
+import 'package:vakil99/app/modules/familyupdate/views/familyupdate_view.dart';
 import 'package:vakil99/constants.dart';
 import '../controllers/familymember_controller.dart';
 
@@ -230,14 +231,20 @@ class FamilymemberView extends GetView<FamilymemberController> {
                                                   onTap: (){
                                                     Get.back();
                                                   },
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(Icons.edit_document,color: Colors.green,),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Text("Edits",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),)
-                                                    ],
+                                                  child: InkWell(
+                                                    onTap: (){
+                                                      Get.back();
+                                                      Get.to( ()=> FamilyupdateView(),arguments: familymemberController.familyListModel[index].id);
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(Icons.edit_document,color: Colors.green,),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text("Edits",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),)
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -245,14 +252,20 @@ class FamilymemberView extends GetView<FamilymemberController> {
                                               PopupMenuItem(
                                                 value: 2,
                                                 // row with two children
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons.delete,color: Colors.red,),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Delete",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold))
-                                                  ],
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    Get.back();
+                                                    familymemberController.MemberDelete("${familymemberController.familyListModel[index].id}");
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.delete,color: Colors.red,),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text("Delete",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold))
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ],

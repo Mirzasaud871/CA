@@ -61,7 +61,7 @@ class DocumentView extends GetView<DocumentController> {
                             onTap: () {
                               Get.bottomSheet(
                                   Container(
-                                      height: 500,
+                                      height: 700,
                                       decoration: BoxDecoration(
                                           borderRadius: const BorderRadius.only(
                                               topLeft: Radius.circular(25.0),
@@ -161,6 +161,7 @@ class DocumentView extends GetView<DocumentController> {
                                                           ),
                                                         ]),
                                                     child:TextFormField(
+
                                                       readOnly: true,
                                                       controller: documentController.nameController,
                                                       decoration: InputDecoration(
@@ -472,8 +473,15 @@ class DocumentView extends GetView<DocumentController> {
                                                   ],
                                                 ),
                                                 Spacer(),
-                                                Icon(Icons.file_download,
-                                                  color: primaryColor,)
+                                                InkWell(
+                                                  onTap: (){
+                                                    print("buttn");
+                                                    documentController
+                                                        .downloadFile(documentController.documentListModel[index].document.toString());
+                                                  },
+                                                  child: Icon(Icons.file_download,
+                                                    color: primaryColor,),
+                                                )
                                               ],
                                             ),
                                           ),

@@ -1,413 +1,270 @@
-// To parse this JSON data, do
-//
-//     final searchModel = searchModelFromJson(jsonString);
+class SearchServiceModel {
+  int? status;
+  String? message;
+  List<CaServices>? caServices;
 
-import 'dart:convert';
+  SearchServiceModel({this.status, this.message, this.caServices});
 
-SearchModel searchModelFromJson(String str) => SearchModel.fromJson(json.decode(str));
+  SearchServiceModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    if (json['ca_services'] != null) {
+      caServices = <CaServices>[];
+      json['ca_services'].forEach((v) {
+        caServices!.add(new CaServices.fromJson(v));
+      });
+    }
+  }
 
-String searchModelToJson(SearchModel data) => json.encode(data.toJson());
-
-class SearchModel {
-  int status;
-  String message;
-  List<CaService> caServices;
-
-  SearchModel({
-    required this.status,
-    required this.message,
-    required this.caServices,
-  });
-
-  factory SearchModel.fromJson(Map<String, dynamic> json) => SearchModel(
-    status: json["status"],
-    message: json["message"],
-    caServices: List<CaService>.from(json["ca_services"].map((x) => CaService.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "ca_services": List<dynamic>.from(caServices.map((x) => x.toJson())),
-  };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.caServices != null) {
+      data['ca_services'] = this.caServices!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
-class CaService {
-  int id;
-  int cAServiceId;
-  OrgId orgId;
-  String name;
-  String slug;
+class CaServices {
+  int? id;
+  int? cAServiceId;
+  String? orgId;
+  String? name;
+  String? slug;
   String? description;
-  int marketPrice;
-  int purchasePrice;
-  int price;
-  int gst;
-  dynamic discount;
-  dynamic discountType;
-  TaxType taxType;
-  ServiceType serviceType;
+  int? marketPrice;
+  int? purchasePrice;
+  int? price;
+  int? gst;
+  Null? discount;
+  Null? discountType;
+  String? taxType;
+  String? serviceType;
   String? image;
-  int isVideo;
+  int? isVideo;
   String? video;
-  RenewalFrequency? renewalFrequency;
+  String? renewalFrequency;
   String? termsCondition;
-  int status;
-  int categorieId;
-  int featured;
-  Badges badges;
-  DateTime createdAt;
-  DateTime updatedAt;
-  List<Doc> docs;
-  Category category;
+  int? status;
+  int? categorieId;
+  int? featured;
+  String? badges;
+  String? createdAt;
+  String? updatedAt;
+  Null? deletedAt;
+  List<Docs>? docs;
+  Category? category;
 
-  CaService({
-    required this.id,
-    required this.cAServiceId,
-    required this.orgId,
-    required this.name,
-    required this.slug,
-    required this.description,
-    required this.marketPrice,
-    required this.purchasePrice,
-    required this.price,
-    required this.gst,
-    required this.discount,
-    required this.discountType,
-    required this.taxType,
-    required this.serviceType,
-    required this.image,
-    required this.isVideo,
-    required this.video,
-    required this.renewalFrequency,
-    required this.termsCondition,
-    required this.status,
-    required this.categorieId,
-    required this.featured,
-    required this.badges,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.docs,
-    required this.category,
-  });
+  CaServices(
+      {this.id,
+        this.cAServiceId,
+        this.orgId,
+        this.name,
+        this.slug,
+        this.description,
+        this.marketPrice,
+        this.purchasePrice,
+        this.price,
+        this.gst,
+        this.discount,
+        this.discountType,
+        this.taxType,
+        this.serviceType,
+        this.image,
+        this.isVideo,
+        this.video,
+        this.renewalFrequency,
+        this.termsCondition,
+        this.status,
+        this.categorieId,
+        this.featured,
+        this.badges,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt,
+        this.docs,
+        this.category});
 
-  factory CaService.fromJson(Map<String, dynamic> json) => CaService(
-    id: json["id"],
-    cAServiceId: json["c_a__service_id"],
-    orgId: orgIdValues.map[json["org_id"]]!,
-    name: json["name"],
-    slug: json["slug"],
-    description: json["description"],
-    marketPrice: json["market_price"],
-    purchasePrice: json["purchase_price"],
-    price: json["price"],
-    gst: json["gst"],
-    discount: json["discount"],
-    discountType: json["discount_type"],
-    taxType: taxTypeValues.map[json["tax_type"]]!,
-    serviceType: serviceTypeValues.map[json["service_type"]]!,
-    image: json["image"],
-    isVideo: json["is_video"],
-    video: json["video"],
-    renewalFrequency: renewalFrequencyValues.map[json["renewal_frequency"]]!,
-    termsCondition: json["terms_condition"],
-    status: json["status"],
-    categorieId: json["categorie_id"],
-    featured: json["featured"],
-    badges: badgesValues.map[json["badges"]]!,
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    docs: List<Doc>.from(json["docs"].map((x) => Doc.fromJson(x))),
-    category: Category.fromJson(json["category"]),
-  );
+  CaServices.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    cAServiceId = json['c_a__service_id'];
+    orgId = json['org_id'];
+    name = json['name'];
+    slug = json['slug'];
+    description = json['description'];
+    marketPrice = json['market_price'];
+    purchasePrice = json['purchase_price'];
+    price = json['price'];
+    gst = json['gst'];
+    discount = json['discount'];
+    discountType = json['discount_type'];
+    taxType = json['tax_type'];
+    serviceType = json['service_type'];
+    image = json['image'];
+    isVideo = json['is_video'];
+    video = json['video'];
+    renewalFrequency = json['renewal_frequency'];
+    termsCondition = json['terms_condition'];
+    status = json['status'];
+    categorieId = json['categorie_id'];
+    featured = json['featured'];
+    badges = json['badges'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    deletedAt = json['deleted_at'];
+    if (json['docs'] != null) {
+      docs = <Docs>[];
+      json['docs'].forEach((v) {
+        docs!.add(new Docs.fromJson(v));
+      });
+    }
+    category = json['category'] != null
+        ? new Category.fromJson(json['category'])
+        : null;
+  }
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "c_a__service_id": cAServiceId,
-    "org_id": orgIdValues.reverse[orgId],
-    "name": name,
-    "slug": slug,
-    "description": description,
-    "market_price": marketPrice,
-    "purchase_price": purchasePrice,
-    "price": price,
-    "gst": gst,
-    "discount": discount,
-    "discount_type": discountType,
-    "tax_type": taxTypeValues.reverse[taxType],
-    "service_type": serviceTypeValues.reverse[serviceType],
-    "image": image,
-    "is_video": isVideo,
-    "video": video,
-    "renewal_frequency": renewalFrequencyValues.reverse[renewalFrequency],
-    "terms_condition": termsCondition,
-    "status": status,
-    "categorie_id": categorieId,
-    "featured": featured,
-    "badges": badgesValues.reverse[badges],
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "docs": List<dynamic>.from(docs.map((x) => x.toJson())),
-    "category": category.toJson(),
-  };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['c_a__service_id'] = this.cAServiceId;
+    data['org_id'] = this.orgId;
+    data['name'] = this.name;
+    data['slug'] = this.slug;
+    data['description'] = this.description;
+    data['market_price'] = this.marketPrice;
+    data['purchase_price'] = this.purchasePrice;
+    data['price'] = this.price;
+    data['gst'] = this.gst;
+    data['discount'] = this.discount;
+    data['discount_type'] = this.discountType;
+    data['tax_type'] = this.taxType;
+    data['service_type'] = this.serviceType;
+    data['image'] = this.image;
+    data['is_video'] = this.isVideo;
+    data['video'] = this.video;
+    data['renewal_frequency'] = this.renewalFrequency;
+    data['terms_condition'] = this.termsCondition;
+    data['status'] = this.status;
+    data['categorie_id'] = this.categorieId;
+    data['featured'] = this.featured;
+    data['badges'] = this.badges;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['deleted_at'] = this.deletedAt;
+    if (this.docs != null) {
+      data['docs'] = this.docs!.map((v) => v.toJson()).toList();
+    }
+    if (this.category != null) {
+      data['category'] = this.category!.toJson();
+    }
+    return data;
+  }
 }
 
-enum Badges {
-  LOGO,
-  NONE,
-  OFFER
-}
+class Docs {
+  int? id;
+  int? cAServiceId;
+  String? documentType;
+  String? name;
+  int? isMultiple;
+  int? multipleQty;
+  String? createdAt;
+  String? updatedAt;
+  Null? deletedAt;
 
-final badgesValues = EnumValues({
-  "logo": Badges.LOGO,
-  "none": Badges.NONE,
-  "offer": Badges.OFFER
-});
+  Docs(
+      {this.id,
+        this.cAServiceId,
+        this.documentType,
+        this.name,
+        this.isMultiple,
+        this.multipleQty,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt});
+
+  Docs.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    cAServiceId = json['c_a__service_id'];
+    documentType = json['document_type'];
+    name = json['name'];
+    isMultiple = json['is_multiple'];
+    multipleQty = json['multiple_qty'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    deletedAt = json['deleted_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['c_a__service_id'] = this.cAServiceId;
+    data['document_type'] = this.documentType;
+    data['name'] = this.name;
+    data['is_multiple'] = this.isMultiple;
+    data['multiple_qty'] = this.multipleQty;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['deleted_at'] = this.deletedAt;
+    return data;
+  }
+}
 
 class Category {
-  int id;
-  Name name;
-  Slug? slug;
-  Description description;
-  String image;
-  BannerType? bannerType;
+  int? id;
+  String? name;
+  String? slug;
+  String? description;
+  String? image;
+  String? bannerType;
   String? media;
-  int status;
-  dynamic parent;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? status;
+  Null? parent;
+  String? createdAt;
+  String? updatedAt;
 
-  Category({
-    required this.id,
-    required this.name,
-    required this.slug,
-    required this.description,
-    required this.image,
-    required this.bannerType,
-    required this.media,
-    required this.status,
-    required this.parent,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+  Category(
+      {this.id,
+        this.name,
+        this.slug,
+        this.description,
+        this.image,
+        this.bannerType,
+        this.media,
+        this.status,
+        this.parent,
+        this.createdAt,
+        this.updatedAt});
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-    id: json["id"],
-    name: nameValues.map[json["name"]]!,
-    slug: slugValues.map[json["slug"]]!,
-    description: descriptionValues.map[json["description"]]!,
-    image: json["image"],
-    bannerType: bannerTypeValues.map[json["banner_type"]]!,
-    media: json["media"],
-    status: json["status"],
-    parent: json["parent"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-  );
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    slug = json['slug'];
+    description = json['description'];
+    image = json['image'];
+    bannerType = json['banner_type'];
+    media = json['media'];
+    status = json['status'];
+    parent = json['parent'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": nameValues.reverse[name],
-    "slug": slugValues.reverse[slug],
-    "description": descriptionValues.reverse[description],
-    "image": image,
-    "banner_type": bannerTypeValues.reverse[bannerType],
-    "media": media,
-    "status": status,
-    "parent": parent,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-  };
-}
-
-enum BannerType {
-  URL,
-  VIDEO
-}
-
-final bannerTypeValues = EnumValues({
-  "url": BannerType.URL,
-  "video": BannerType.VIDEO
-});
-
-enum Description {
-  ACCOUNTING_SERVICES,
-  ALL_GST_AND_TAX_SERVICES,
-  AUDIT_SERVICE,
-  COMPANY_CONVERT_SERVICES,
-  CO_FORMATION_SERVICES,
-  DSC_SERVICES,
-  E_WAY,
-  FSSAI,
-  TEST
-}
-
-final descriptionValues = EnumValues({
-  "Accounting services": Description.ACCOUNTING_SERVICES,
-  "All Gst and tax services": Description.ALL_GST_AND_TAX_SERVICES,
-  "Audit Service": Description.AUDIT_SERVICE,
-  "company convert services": Description.COMPANY_CONVERT_SERVICES,
-  "Co Formation Services": Description.CO_FORMATION_SERVICES,
-  "DSC Services": Description.DSC_SERVICES,
-  "E-way": Description.E_WAY,
-  "FSSAI": Description.FSSAI,
-  "test": Description.TEST
-});
-
-enum Name {
-  COMPANY_CONVERT,
-  COMPLIANCE,
-  GOODS_SERVICES,
-  IMPORT_EXPORT,
-  INCOME_TAX,
-  LEGAL_DOCUMENTATION,
-  LOAN,
-  STARTUP,
-  TRADEMARK
-}
-
-final nameValues = EnumValues({
-  "Company Convert": Name.COMPANY_CONVERT,
-  "Compliance": Name.COMPLIANCE,
-  "Goods & Services": Name.GOODS_SERVICES,
-  "Import & Export": Name.IMPORT_EXPORT,
-  "Income Tax": Name.INCOME_TAX,
-  "Legal Documentation": Name.LEGAL_DOCUMENTATION,
-  "Loan": Name.LOAN,
-  "Startup": Name.STARTUP,
-  "Trademark": Name.TRADEMARK
-});
-
-enum Slug {
-  COMPLIANCE,
-  GOODS_SERVICES,
-  IMPORT_EXPORT,
-  INCOME_TAX,
-  LEGAL_DOCUMENTATION,
-  LOAN,
-  STARTUP,
-  TRADEMARK
-}
-
-final slugValues = EnumValues({
-  "compliance": Slug.COMPLIANCE,
-  "goods-services": Slug.GOODS_SERVICES,
-  "import-export": Slug.IMPORT_EXPORT,
-  "income-tax": Slug.INCOME_TAX,
-  "legal-documentation": Slug.LEGAL_DOCUMENTATION,
-  "loan": Slug.LOAN,
-  "startup": Slug.STARTUP,
-  "trademark": Slug.TRADEMARK
-});
-
-class Doc {
-  int id;
-  int cAServiceId;
-  DocumentType documentType;
-  String name;
-  int isMultiple;
-  int multipleQty;
-  DateTime createdAt;
-  DateTime updatedAt;
-  dynamic deletedAt;
-
-  Doc({
-    required this.id,
-    required this.cAServiceId,
-    required this.documentType,
-    required this.name,
-    required this.isMultiple,
-    required this.multipleQty,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
-  });
-
-  factory Doc.fromJson(Map<String, dynamic> json) => Doc(
-    id: json["id"],
-    cAServiceId: json["c_a__service_id"],
-    documentType: documentTypeValues.map[json["document_type"]]!,
-    name: json["name"],
-    isMultiple: json["is_multiple"],
-    multipleQty: json["multiple_qty"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "c_a__service_id": cAServiceId,
-    "document_type": documentTypeValues.reverse[documentType],
-    "name": name,
-    "is_multiple": isMultiple,
-    "multiple_qty": multipleQty,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "deleted_at": deletedAt,
-  };
-}
-
-enum DocumentType {
-  EXCEL,
-  IMAGE,
-  PDF,
-  WORD
-}
-
-final documentTypeValues = EnumValues({
-  "excel": DocumentType.EXCEL,
-  "image": DocumentType.IMAGE,
-  "pdf": DocumentType.PDF,
-  "word": DocumentType.WORD
-});
-
-enum OrgId {
-  BR01_KFAQ
-}
-
-final orgIdValues = EnumValues({
-  "BR01KFAQ": OrgId.BR01_KFAQ
-});
-
-enum RenewalFrequency {
-  YEARLY
-}
-
-final renewalFrequencyValues = EnumValues({
-  "yearly": RenewalFrequency.YEARLY
-});
-
-enum ServiceType {
-  NEW_COMPANY,
-  PERSONAL
-}
-
-final serviceTypeValues = EnumValues({
-  "new-company": ServiceType.NEW_COMPANY,
-  "personal": ServiceType.PERSONAL
-});
-
-enum TaxType {
-  EXCLUSIVE,
-  INCLUSIVE,
-  SELECT
-}
-
-final taxTypeValues = EnumValues({
-  "exclusive": TaxType.EXCLUSIVE,
-  "inclusive": TaxType.INCLUSIVE,
-  "select": TaxType.SELECT
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['slug'] = this.slug;
+    data['description'] = this.description;
+    data['image'] = this.image;
+    data['banner_type'] = this.bannerType;
+    data['media'] = this.media;
+    data['status'] = this.status;
+    data['parent'] = this.parent;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
   }
 }

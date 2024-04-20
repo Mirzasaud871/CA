@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:vakil99/app/modules/checkout/views/checkout_view.dart';
 import 'package:vakil99/constants.dart';
-
 import '../controllers/details_controller.dart';
 
 class DetailsView extends GetView<DetailsController> {
@@ -135,7 +133,7 @@ class DetailsView extends GetView<DetailsController> {
                                         .gstExclusive} GST)",
                                     style: TextStyle(
                                         color: Colors.blue,
-                                        fontSize: 12,
+                                        fontSize: 10,
                                         fontWeight: FontWeight.bold)),
                               ],
                             )
@@ -157,7 +155,7 @@ class DetailsView extends GetView<DetailsController> {
                                         .price} GST)",
                                     style: TextStyle(
                                         color: Colors.blue,
-                                        fontSize: 12,
+                                        fontSize: 10,
                                         fontWeight: FontWeight.bold)),
                               ],
                             );

@@ -86,7 +86,13 @@ class AddcompanyController extends GetxController {
   Widget methodName() {
     switch (dropdownlist.value) {
       case 'Proprietorship':
-        return TextField(
+        return TextFormField(
+          validator: (val){
+            if(val!.isEmpty){
+              return "Gst required";
+            }
+            return null;
+          },
             controller: gstinController,
             decoration: InputDecoration(
               hintText: "GSTIN",
@@ -103,7 +109,13 @@ class AddcompanyController extends GetxController {
         // do something
         break;
       case "Private Limited":
-        return TextField(
+        return TextFormField(
+            validator: (val){
+              if(val!.isEmpty){
+                return "Cin required";
+              }
+              return null;
+            },
             controller: cinController,
             decoration: InputDecoration(
               hintText: "CIN",
@@ -120,7 +132,13 @@ class AddcompanyController extends GetxController {
         // do something else
         break;
       case "LLP":
-        return TextField(
+        return TextFormField(
+            validator: (val){
+              if(val!.isEmpty){
+                return "Llpin required";
+              }
+              return null;
+            },
             controller: llpinController,
             decoration: InputDecoration(
               hintText: "LLPIN",
@@ -140,7 +158,8 @@ class AddcompanyController extends GetxController {
   }
 
   addCompanyDetails(
-      String cin,
+      String gst,
+      String comapnyType,
       String register,
       String companyName,
       String roc,
@@ -158,8 +177,10 @@ class AddcompanyController extends GetxController {
       String zipcode,
       String address,
       ) async{
+    print("object");
     var res = await ApiServices().postApi(addCompanyURL,{
-      'cin' : cin,
+      'cin' : gst,
+      'customRadioTemp' :comapnyType,
       'registration_no' : register,
       'company_name' : companyName,
       'roc' : roc,
@@ -177,7 +198,6 @@ class AddcompanyController extends GetxController {
       'postal_no' : zipcode,
       'address' : address,
     });
-    print(res);
     res.fold((l){
       if(l['status'] == 200){
         print("Api response $res");
@@ -190,6 +210,26 @@ class AddcompanyController extends GetxController {
           backgroundColor: Colors.green,
           snackPosition: SnackPosition.BOTTOM
         );
+        gstinController.clear();
+      cinController.clear();
+      llpinController.clear();
+      registerController.clear();
+      companyController.clear();
+      rocController.clear();
+      categorylist.value == '- Selected Company Category -';
+      subCategoryController.clear();
+      classlist.value == '- Class Of Company -';
+      listinglist.value == '- Listing Status -';
+      authorizedController.clear();
+      paidController.clear();
+      // contact details
+      emailController.clear();
+      phoneController.clear();
+      countryController.clear();
+      stateController.clear();
+      cityController.clear();
+      zipController.clear();
+      addressController.clear();
       }
     },(r){});
   }

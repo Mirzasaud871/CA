@@ -35,20 +35,20 @@ class OrderModel {
 class Order {
   int id;
   String orgId;
-  int userId;
+  int? userId;
   String userType;
   String orderId;
   String orderStatus;
   List<dynamic> documents;
   String documentStatus;
-  int amount;
-  dynamic discount;
+  int? amount;
+  int? discount;
   dynamic discountType;
-  String paymentStatus;
-  dynamic paymentSessionId;
-  String paymentMethod;
+  String? paymentStatus;
+  String? paymentSessionId;
+  String? paymentMethod;
   dynamic txnId;
-  int isTransfer;
+  int? isTransfer;
   dynamic transferFrom;
   dynamic transferFromOrgId;
   String transferTo;
@@ -56,12 +56,14 @@ class Order {
   dynamic acceptedBy;
   dynamic remark;
   dynamic issueDate;
+  dynamic expiry;
   dynamic customerCompanyId;
   dynamic renewalFrequency;
-  dynamic couponId;
+  int? couponId;
   dynamic couponCode;
   DateTime createdAt;
   DateTime updatedAt;
+  dynamic rating;
   dynamic connectedCompany;
   Detail detail;
   List<dynamic> finalDoc;
@@ -90,12 +92,14 @@ class Order {
     required this.acceptedBy,
     required this.remark,
     required this.issueDate,
+    required this.expiry,
     required this.customerCompanyId,
     required this.renewalFrequency,
     required this.couponId,
     required this.couponCode,
     required this.createdAt,
     required this.updatedAt,
+    required this.rating,
     required this.connectedCompany,
     required this.detail,
     required this.finalDoc,
@@ -125,12 +129,14 @@ class Order {
     acceptedBy: json["accepted_by"],
     remark: json["remark"],
     issueDate: json["issue_date"],
+    expiry: json["expiry"],
     customerCompanyId: json["customer_company_id"],
     renewalFrequency: json["renewal_frequency"],
     couponId: json["coupon_id"],
     couponCode: json["coupon_code"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    rating: json["rating"],
     connectedCompany: json["connected_company"],
     detail: Detail.fromJson(json["detail"]),
     finalDoc: List<dynamic>.from(json["final_doc"].map((x) => x)),
@@ -160,12 +166,14 @@ class Order {
     "accepted_by": acceptedBy,
     "remark": remark,
     "issue_date": issueDate,
+    "expiry": expiry,
     "customer_company_id": customerCompanyId,
     "renewal_frequency": renewalFrequency,
     "coupon_id": couponId,
     "coupon_code": couponCode,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
+    "rating": rating,
     "connected_company": connectedCompany,
     "detail": detail.toJson(),
     "final_doc": List<dynamic>.from(finalDoc.map((x) => x)),
@@ -229,10 +237,10 @@ class Customer {
   String mobileNo;
   String pan;
   String aadhar;
-  String panImage;
-  String aadharImage;
+  dynamic panImage;
+  dynamic aadharImage;
   String gstin;
-  String dinNo;
+  dynamic dinNo;
   String postalNo;
   String city;
   String state;
@@ -334,30 +342,31 @@ class Customer {
 
 class Service {
   int id;
-  int cAServiceId;
-  String orgId;
-  String name;
-  String slug;
-  dynamic description;
-  int marketPrice;
-  int purchasePrice;
-  int price;
-  int gst;
+  int? cAServiceId;
+  String? orgId;
+  String? name;
+  String? slug;
+  String? description;
+  int? marketPrice;
+  int? purchasePrice;
+  int? price;
+  int? gst;
   dynamic discount;
   dynamic discountType;
-  String taxType;
-  String serviceType;
-  dynamic image;
-  int isVideo;
-  dynamic video;
+  String? taxType;
+  String? serviceType;
+  String? image;
+  int? isVideo;
+  String? video;
   dynamic renewalFrequency;
-  dynamic termsCondition;
-  int status;
-  int categorieId;
-  int featured;
-  String badges;
+  String? termsCondition;
+  int? status;
+  int? categorieId;
+  int? featured;
+  String? badges;
   DateTime createdAt;
   DateTime updatedAt;
+  dynamic deletedAt;
   List<Doc> docs;
 
   Service({
@@ -386,6 +395,7 @@ class Service {
     required this.badges,
     required this.createdAt,
     required this.updatedAt,
+    required this.deletedAt,
     required this.docs,
   });
 
@@ -415,6 +425,7 @@ class Service {
     badges: json["badges"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    deletedAt: json["deleted_at"],
     docs: List<Doc>.from(json["docs"].map((x) => Doc.fromJson(x))),
   );
 
@@ -444,6 +455,7 @@ class Service {
     "badges": badges,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
+    "deleted_at": deletedAt,
     "docs": List<dynamic>.from(docs.map((x) => x.toJson())),
   };
 }
@@ -454,8 +466,8 @@ class Doc {
   String documentType;
   String name;
   int isMultiple;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   Doc({
     required this.id,
@@ -463,8 +475,8 @@ class Doc {
     required this.documentType,
     required this.name,
     required this.isMultiple,
-    this.createdAt,
-    this.updatedAt,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   factory Doc.fromJson(Map<String, dynamic> json) => Doc(
@@ -473,8 +485,8 @@ class Doc {
     documentType: json["document_type"],
     name: json["name"],
     isMultiple: json["is_multiple"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -483,7 +495,7 @@ class Doc {
     "document_type": documentType,
     "name": name,
     "is_multiple": isMultiple,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
   };
 }

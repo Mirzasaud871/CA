@@ -4,6 +4,7 @@ import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,13 +34,13 @@ class LoginpageView extends GetView<LoginpageController> {
                   key: loginController.formKey,
                   child: Column(
                     children: [
-                      SizedBox(height: size.width / 10),
+
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
                           "Login Now",
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(height: size.width / 30),
@@ -88,7 +89,6 @@ class LoginpageView extends GetView<LoginpageController> {
                             loginController.loginCheckuser(
                                 loginController.emailController.text);
                             Timer(Duration(seconds:15), () {
-                                loginController.emailController.clear();
                                 loginController.loadingButtonController.reset();
                               });
                           } else {
@@ -426,7 +426,8 @@ class LoginpageView extends GetView<LoginpageController> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                   readOnly: true,
                   decoration: InputDecoration(
-                      hintText: "${loginController.emailController.text}",
+                      // hintText: "${loginController.emailController.text}",
+                      labelText: "${loginController.emailController.text}",
                       suffixIcon: Icon(
                         Icons.check,
                         color: Colors.green,
@@ -698,7 +699,7 @@ class LoginpageView extends GetView<LoginpageController> {
                   children: [
                     const Text(
                       "Hello, \nWelcome Back",
-                      style: titleDark,
+                      style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),
                     ),
                     //Logo Image
 
@@ -707,10 +708,10 @@ class LoginpageView extends GetView<LoginpageController> {
                       delay: const Duration(milliseconds: 300),
                       child: Column(
                         children: [
-                          const SizedBox(height: 30),
-                          Image.asset(
-                            "assets/images/Loginimage.png",
-                            height: 250,
+                          const SizedBox(height: 40),
+                          Lottie.asset(
+                            "assets/images/intro/firstAnimated.json",
+                            height: 350,
                           ),
                           SizedBox(height: size.width * 0.05),
                           loginController.isCheckEmail.value == false &&

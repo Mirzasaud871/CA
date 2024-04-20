@@ -16,7 +16,7 @@ class FeaturedServiceModel {
   String? image;
   int? isVideo;
   String? video;
-  Null? renewalFrequency;
+  String? renewalFrequency;
   String? termsCondition;
   int? status;
   int? categorieId;

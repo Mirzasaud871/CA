@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:vakil99/app/modules/startup/modal/startup_model.dart';
 
@@ -10,6 +12,7 @@ class StartupController extends GetxController {
 
   final count = 0.obs;
   var filterlist = true.obs;
+
 
   @override
   void onInit() {

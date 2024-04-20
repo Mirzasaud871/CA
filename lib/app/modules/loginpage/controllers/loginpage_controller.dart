@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vakil99/Models/UserModel.dart';
 import 'package:vakil99/apiservices.dart';
 import 'package:vakil99/app/modules/createpassword/views/createpassword_view.dart';
+import 'package:vakil99/app/modules/home/views/home_view.dart';
 import 'package:vakil99/constants.dart';
 import '../../bottombar/views/bottombar_view.dart';
 
@@ -33,6 +34,7 @@ class LoginpageController extends GetxController {
   var isLoading = false.obs;
   var userId = ''.obs;
   var amount = ''.obs;
+
 
   late TextEditingController phoneNumber = TextEditingController();
   late TextEditingController emailController = TextEditingController();
@@ -157,7 +159,7 @@ class LoginpageController extends GetxController {
         sharedPreferences.setString(userToken, userdata.token!);
         sharedPreferences.setString(userEmail, userdata.email!);
         sharedPreferences.setString(userMobile, userdata.mobileNo!);
-        Get.offAll(BottombarView());
+        Get.offAll(HomeView());
         loadingButtonController.reset();
         isEmail.value = false;
       }

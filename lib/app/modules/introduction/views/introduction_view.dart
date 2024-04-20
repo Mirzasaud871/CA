@@ -34,7 +34,7 @@ class IntroductionView extends GetView<IntroductionController> {
                       children: [
                         Center(
                           child: Lottie.asset(
-                            "assets/images/intro/firstimage.json",
+                            "assets/images/firstAnimated.json",
                             height: 300,
                           ),
                         ),

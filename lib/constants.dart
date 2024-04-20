@@ -112,7 +112,9 @@ const TextStyle buttonsubTitleDark = TextStyle(
     letterSpacing: 0.5
 );
 
- const addDomain = "zynomatrix";
+
+ const addDomain = "resrv.in";
+ const posDomain = "https://$addDomain/app/pos";
  const baseURL = "https://apis.rizrv.in/api/";
  const loginURL = 'customer/web/$addDomain/auth';
  const loginCheckURL = 'company/front/customer/check/$addDomain';
@@ -127,6 +129,7 @@ const TextStyle buttonsubTitleDark = TextStyle(
  const updateProfileURL = "customer/web/$addDomain/profile/update";
  const documentURL = "customer/web/$addDomain/documents";
  const myOrderURL = "customer/web/$addDomain/orders";
+ const singleOrderURL = "customer/web/$addDomain/order/";
  const familyMembersURL = "customer/web/$addDomain/family/members";
  const familyStoresURL = "customer/web/$addDomain/family/member/store";
  const companyURL = "customer/company/data/$addDomain";
@@ -137,6 +140,13 @@ const TextStyle buttonsubTitleDark = TextStyle(
  const addCompanyURL = "customer/company/data/$addDomain/store";
  const addDirectorsURL = "customer/company/data/$addDomain/director/add";
  const ledgerURL = "customer/web/$addDomain/ledger";
+ const companyDeleteURL = "customer/company/data/$addDomain/delete/";
+ const familyDeleteURL = "customer/web/$addDomain/family/member/remove";
+ const familyUpdateURL = "customer/web/$addDomain/family/member/update/";
+ const singleFamilyMemberURL = "customer/web/$addDomain/family/members/";
+ const companyUpdateURL = "customer/company/data/$addDomain/update";
+ const connectCompanyURL = "customer/web/$addDomain/order/connect/company";
+ const ratingURL = "customer/company/data/$addDomain/rating/store";
 
 
 

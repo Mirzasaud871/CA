@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:vakil99/app/modules/add_directors/views/add_directors_view.dart';
 import 'package:vakil99/app/modules/addcompany/views/addcompany_view.dart';
 import 'package:vakil99/app/modules/companydetails/views/companydetails_view.dart';
+import 'package:vakil99/app/modules/companyupdate/views/companyupdate_view.dart';
 import 'package:vakil99/constants.dart';
 import '../controllers/companymanagment_controller.dart';
 
@@ -192,6 +193,7 @@ class CompanymanagmentView extends GetView<CompanymanagmentController> {
                                                     },
                                                     child: InkWell(
                                                       onTap: () {
+                                                        Get.back();
                                                         Get.to(() => CompanydetailsView(),
                                                             arguments:
                                                             companymanagmentController
@@ -214,28 +216,39 @@ class CompanymanagmentView extends GetView<CompanymanagmentController> {
                                                 PopupMenuItem(
                                                   value: 2,
                                                   // row with two children
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(Icons.edit_document,color: Colors.green,),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Text("Edit",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold))
-                                                    ],
+                                                  child: InkWell(
+                                                    onTap: (){
+                                                      Get.to( ()=> CompanyupdateView(),arguments:companymanagmentController.companyModellist[index].cin,);
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(Icons.edit_document,color: Colors.green,),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text("Edit",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold))
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                                 // PopupMenuItem 3
                                                 PopupMenuItem(
                                                   value: 3,
                                                   // row with two children
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(Icons.delete,color: Colors.red,),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Text("Delete",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold))
-                                                    ],
+                                                  child: InkWell(
+                                                    onTap: (){
+                                                      Get.back();
+                                                      companymanagmentController.getDeleteCompany("${companymanagmentController.companyModellist[index].id}");
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(Icons.delete,color: Colors.red,),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Text("Delete",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold))
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                                 // PopupMenuItem 4
@@ -244,7 +257,8 @@ class CompanymanagmentView extends GetView<CompanymanagmentController> {
                                                   // row with two children
                                                   child: InkWell(
                                                     onTap: (){
-                                                      Get.to(AddDirectorsView());
+                                                      Get.back();
+                                                      Get.to( ()=> AddDirectorsView(),arguments: companymanagmentController.companyModellist[index].id);
                                                     },
                                                     child: Row(
                                                       children: [

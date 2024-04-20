@@ -30,6 +30,8 @@ import '../modules/document/bindings/document_binding.dart';
 import '../modules/document/views/document_view.dart';
 import '../modules/familymember/bindings/familymember_binding.dart';
 import '../modules/familymember/views/familymember_view.dart';
+import '../modules/familyupdate/bindings/familyupdate_binding.dart';
+import '../modules/familyupdate/views/familyupdate_view.dart';
 import '../modules/goodservices/bindings/goodservices_binding.dart';
 import '../modules/goodservices/views/goodservices_view.dart';
 import '../modules/gstproprietorship/bindings/gstproprietorship_binding.dart';
@@ -48,6 +50,14 @@ import '../modules/myorder/bindings/myorder_binding.dart';
 import '../modules/myorder/views/myorder_view.dart';
 import '../modules/myorder_document/bindings/myorder_document_binding.dart';
 import '../modules/myorder_document/views/myorder_document_view.dart';
+import '../modules/orderdetails/bindings/orderdetails_binding.dart';
+import '../modules/orderdetails/views/orderdetails_view.dart';
+import '../modules/orderdocument/bindings/orderdocument_binding.dart';
+import '../modules/orderdocument/views/orderdocument_view.dart';
+import '../modules/orderinvoice/bindings/orderinvoice_binding.dart';
+import '../modules/orderinvoice/views/orderinvoice_view.dart';
+import '../modules/pos/bindings/pos_binding.dart';
+import '../modules/pos/views/pos_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -211,6 +221,31 @@ class AppPages {
       name: _Paths.IMPLINKS,
       page: () => ImplinksView(),
       binding: ImplinksBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDERINVOICE,
+      page: () => OrderinvoiceView(),
+      binding: OrderinvoiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDERDETAILS,
+      page: () => OrderdetailsView(),
+      binding: OrderdetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAMILYUPDATE,
+      page: () => FamilyupdateView(),
+      binding: FamilyupdateBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDERDOCUMENT,
+      page: () => const OrderdocumentView(),
+      binding: OrderdocumentBinding(),
+    ),
+    GetPage(
+      name: _Paths.POS,
+      page: () => PosView(),
+      binding: PosBinding(),
     ),
   ];
 }

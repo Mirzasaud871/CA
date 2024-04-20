@@ -182,10 +182,10 @@ class Order {
   dynamic documents;
   String documentStatus;
   int amount;
-  int discount;
+  int ?discount;
   String? discountType;
   String paymentStatus;
-  String paymentSessionId;
+  String? paymentSessionId;
   String paymentMethod;
   dynamic txnId;
   int isTransfer;
@@ -199,7 +199,7 @@ class Order {
   dynamic expiry;
   dynamic customerCompanyId;
   dynamic renewalFrequency;
-  int couponId;
+  int? couponId;
   String? couponCode;
   DateTime createdAt;
   DateTime updatedAt;
@@ -350,11 +350,11 @@ class Detail {
 
 class Service {
   int id;
-  int cAServiceId;
+  int? cAServiceId;
   String orgId;
   String name;
   String slug;
-  String description;
+  String? description;
   int marketPrice;
   int purchasePrice;
   int price;
